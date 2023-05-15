@@ -1,3 +1,5 @@
+# DizManga
+
 Mi proyecto se basa en una librería de venta de comics, manga, etc...
 
 Tras correr las migraciones y poblarlas con el factory en el seeder se creara un solo usuario con poder administrador y uno predeterminado sin poder alguno, junto a otros creados por faker.

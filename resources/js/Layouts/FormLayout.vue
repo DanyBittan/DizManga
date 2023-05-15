@@ -7,7 +7,7 @@ import { useForm } from "@inertiajs/vue3";
 const props = defineProps({
     comic: {
         type: Object,
-        required: true,
+        required: false,
     },
 });
 
@@ -21,7 +21,7 @@ const form = useForm({
 });
 console.log(form.title);
 const updateComic = () => {
-    form.post(route("updateComic"), {
+    form.post(route("updateComic", { id: props.comic.id }), {
         preserveScroll: true,
         onSuccess: () => emit("closeModal"),
         onFinish: () => form.reset(),
@@ -46,10 +46,8 @@ const emit = defineEmits(["closeModal"]);
                     id="title"
                     type="text"
                     class="mt-1 ml-2 p-1 w-full"
-                    v-model="form.sinopsis"
                     required
                     autofocus
-                    method="post"
                     :value="comic.title"
                 />
             </div>
@@ -63,10 +61,8 @@ const emit = defineEmits(["closeModal"]);
                     id="publisher"
                     type="text"
                     class="mt-1 ml-2 p-1 w-full"
-                    v-model="form.publisher"
                     required
                     autofocus
-                    method="post"
                     :value="comic.publisher"
                 />
             </div>
@@ -80,10 +76,8 @@ const emit = defineEmits(["closeModal"]);
                     id="price"
                     type="number"
                     class="mt-1 ml-2 p-1 w-auto"
-                    v-model="form.price"
                     required
                     autofocus
-                    method="post"
                     :value="comic.price"
                 />
                 <InputLabel
@@ -95,10 +89,8 @@ const emit = defineEmits(["closeModal"]);
                     id="launch"
                     type="text"
                     class="mt-1 ml-2 p-1 w-1/2"
-                    v-model="form.launch"
                     required
                     autofocus
-                    method="post"
                     :value="comic.launch_date"
                 />
             </div>
@@ -113,10 +105,8 @@ const emit = defineEmits(["closeModal"]);
                 id="img"
                 type="url"
                 class="mt-1 ml-2 p-1 w-full h-fit"
-                v-model="form.img"
                 required
                 autofocus
-                method="post"
                 :value="comic.img"
             />
         </div>
@@ -130,10 +120,8 @@ const emit = defineEmits(["closeModal"]);
                 id="sinopsis"
                 type="textarea"
                 class="mt-1 ml-2 p-1 w-full h-fit"
-                v-model="form.sinopsis"
                 required
                 autofocus
-                method="post"
                 :value="comic.sinopsis"
             />
         </div>
@@ -141,7 +129,7 @@ const emit = defineEmits(["closeModal"]);
             <SecondaryButton class="mr-2" @click="$emit('closeModal')">
                 Cancel
             </SecondaryButton>
-            <slot name="buttonType" @click="updateComic" />
+            <SecondaryButton @click="updateComic">Update</SecondaryButton>
         </div>
     </div>
 </template>
