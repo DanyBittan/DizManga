@@ -1,14 +1,15 @@
 <script setup>
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
-import ComicScroll from "@/Components/ComicScroll.vue";
+import ShowDetails from "@/Components/ShowDetails.vue";
 import GuestLayout from "@/Layouts/GuestLayout.vue";
+import { Link } from "@inertiajs/vue3";
 
 const props = defineProps({
-    allComics: Array,
+    comic: Object,
 });
 </script>
 <template>
     <AuthenticatedLayout>
-        <ComicScroll :comics="allComics"> </ComicScroll>
+        <ShowDetails :comic="comic" />
     </AuthenticatedLayout>
 </template>

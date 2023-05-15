@@ -30,7 +30,10 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/home', [ComicController::class, 'index'])->name('home');
+Route::get('/home', [ComicController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
+Route::get('/comic/{id}', [ComicController::class, 'details'])->name('comicDetails');
+Route::any('/comic/{id}/updateComic', [ComicController::class, 'updateComic'])->middleware(['auth', 'verified'])->name('updateComic');
+Route::get('/comic/{id}/deleteComic', [ComicController::class, 'deleteComic'])->name('deleteComic');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

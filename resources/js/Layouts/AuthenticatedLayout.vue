@@ -10,9 +10,12 @@ const showingNavigationDropdown = ref(false);
     <div>
         <div class="min-h-screen bg-darkerGray">
             <NavigationHeader>
-                <div class="flex items-center justify-center text-white">
+                <Link
+                    :href="route('profile.edit')"
+                    class="text-white hover:border-b border-white h-full flex items-center"
+                >
                     Profile
-                </div>
+                </Link>
             </NavigationHeader>
             <main>
                 <slot />
