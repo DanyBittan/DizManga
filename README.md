@@ -33,3 +33,5 @@ Preview del proyecto en [Figma](https://www.figma.com/file/RPUYt5kwzSo3mgvRpFXqg
 Estructura de la base de datos:
 
 <img src="https://github.com/DanyBittan/ContenidoSecreto/blob/main/Base%20de%20datos.png" />
+
+Para mirar los cambios realizados en el proyecto mirar el historial de commits
