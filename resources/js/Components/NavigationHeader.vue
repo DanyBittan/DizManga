@@ -10,15 +10,18 @@ import { Link } from "@inertiajs/vue3";
     <nav class="bg-darkerGray">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between h-16 border-b-2 border-gray-700">
-                <div class="flex">
+            <div
+                class="flex justify-between h-16 border-b-2 border-gray-700 items-center"
+            >
+                <div>
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
-                        <Link :href="route('home')" class="mr-10">
+                        <Link :href="route('home')" class="mr-10" as="button">
                             <ApplicationLogo />
                         </Link>
                         <Link
                             :href="route('home')"
+                            as="button"
                             class="text-white hover:border-b border-white h-full flex items-center"
                             >Home</Link
                         >

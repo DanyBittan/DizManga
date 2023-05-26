@@ -10,12 +10,14 @@ import { Link } from "@inertiajs/vue3";
                 <div class="flex justify-between text-white items-center">
                     <div>
                         <Link
+                            as="button"
                             :href="route('login')"
                             class="bg-gray-800 hover:bg-gray-700 rounded-xl p-3 m-2"
                         >
                             Login
                         </Link>
                         <Link
+                            as="button"
                             :href="route('register')"
                             class="bg-gray-800 hover:bg-gray-700 rounded-xl p-3 m-2"
                         >

@@ -4,8 +4,10 @@ import { Link } from "@inertiajs/vue3";
 <template>
     <header>
         <div>
-            <Link :href="route('login')" class="log"> Login </Link>
-            <Link :href="route('register')" class="reg"> Register </Link>
+            <Link :href="route('login')" class="log" as="button"> Login </Link>
+            <Link :href="route('register')" class="reg" as="button">
+                Register
+            </Link>
         </div>
     </header>
     <body></body>

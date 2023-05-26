@@ -12,14 +12,14 @@ const props = defineProps({
 });
 
 const form = useForm({
-    title: "",
-    publisher: "",
-    price: "",
-    launch: "",
-    img: "",
-    sinopsis: "",
+    title: props.comic.title,
+    publisher: props.comic.publisher,
+    price: props.comic.price,
+    launch: props.comic.launch_date,
+    img: props.comic.img,
+    sinopsis: props.comic.sinopsis,
 });
-console.log(form.title);
+
 const updateComic = () => {
     form.post(route("updateComic", { id: props.comic.id }), {
         preserveScroll: true,
@@ -45,10 +45,11 @@ const emit = defineEmits(["closeModal"]);
                 <TextInput
                     id="title"
                     type="text"
+                    v-model="form.title"
                     class="mt-1 ml-2 p-1 w-full"
                     required
                     autofocus
-                    :value="comic.title"
+                    :value="form.title"
                 />
             </div>
             <div class="flex m-2">
@@ -60,10 +61,11 @@ const emit = defineEmits(["closeModal"]);
                 <TextInput
                     id="publisher"
                     type="text"
+                    v-model="form.publisher"
                     class="mt-1 ml-2 p-1 w-full"
                     required
                     autofocus
-                    :value="comic.publisher"
+                    :value="form.publisher"
                 />
             </div>
             <div class="flex m-2">
@@ -75,10 +77,11 @@ const emit = defineEmits(["closeModal"]);
                 <TextInput
                     id="price"
                     type="number"
+                    v-model="form.price"
                     class="mt-1 ml-2 p-1 w-auto"
                     required
                     autofocus
-                    :value="comic.price"
+                    :value="form.price"
                 />
                 <InputLabel
                     for="launch"
@@ -88,10 +91,11 @@ const emit = defineEmits(["closeModal"]);
                 <TextInput
                     id="launch"
                     type="text"
+                    v-model="form.launch"
                     class="mt-1 ml-2 p-1 w-1/2"
                     required
                     autofocus
-                    :value="comic.launch_date"
+                    :value="form.launch"
                 />
             </div>
         </div>
@@ -104,10 +108,11 @@ const emit = defineEmits(["closeModal"]);
             <TextInput
                 id="img"
                 type="url"
+                v-model="form.img"
                 class="mt-1 ml-2 p-1 w-full h-fit"
                 required
                 autofocus
-                :value="comic.img"
+                :value="form.img"
             />
         </div>
         <div class="m-2">
@@ -118,11 +123,12 @@ const emit = defineEmits(["closeModal"]);
             />
             <TextInput
                 id="sinopsis"
-                type="textarea"
+                type="text"
+                v-model="form.sinopsis"
                 class="mt-1 ml-2 p-1 w-full h-fit"
                 required
                 autofocus
-                :value="comic.sinopsis"
+                :value="form.sinopsis"
             />
         </div>
         <div class="mt-6 flex justify-end">

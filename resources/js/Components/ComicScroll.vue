@@ -13,11 +13,14 @@ const props = defineProps({
             v-for="comic in comics"
             :key="comic.id"
         >
-            <Link :href="route('comicDetails', { id: comic.id })"
+            <Link
+                :href="route('comicDetails', { id: comic.id })"
+                as="button"
+                class="h-full w-full"
                 ><img
                     :src="comic.img"
                     alt="Comic Img"
-                    class="h-full rounded-xl object-cover"
+                    class="h-full w-full rounded-xl object-cover"
             /></Link>
         </div>
     </div>

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -33,17 +32,16 @@ class ComicController extends Controller
         $comics = Comic::find($id);
         Comic::where('id', $id)->update([
             'title' => $request->get('title'),
-            'publisher' => $request->get('editorial'),
-            'img' => $request->get('portada'),
-            'type' => $request->get('type'),
-            'genres' => $request->get('genre'),
+            'publisher' => $request->get('publisher'),
+            'launch_date' => $request->get('launch'),
+            'img' => $request->get('img'),
             'price' => $request->get('price'),
             'sinopsis' => $request->get('sinopsis'),
             'slug' => $slug,
         ]);
 
         // return redirect()->route('updateForm', $comics->id);
-        return to_route('comicDetails');
+        return to_route('comicDetails', $comics->id);
         compact('comics');
     }
     public function deleteComic($id)
@@ -51,4 +49,7 @@ class ComicController extends Controller
         Comic::destroy($id);
         return to_route('home');
     }
+    // public function addComic()
+    // {
+    // }
 }

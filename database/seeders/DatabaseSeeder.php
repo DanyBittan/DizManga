@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'danybi',
             'email' => 'danybi@admin.com',
             'password' => bcrypt('holamundo'),
+            'user_img' => 'https://mf.b37mrtl.ru/rbthmedia/images/2021.06/original/60c5350115e9f9152b1c4529.jpg',
             'admin' => 1
         ]);
 
@@ -23,6 +24,7 @@ class DatabaseSeeder extends Seeder
             'name' => 'normal',
             'email' => 'normal@normal.com',
             'password' => bcrypt('holamundo'),
+            'user_img' => 'https://mf.b37mrtl.ru/rbthmedia/images/2021.06/original/60c5350115e9f9152b1c4529.jpg',
             'admin' => 0
         ]);
         \App\Models\Comic::factory(30)->create();

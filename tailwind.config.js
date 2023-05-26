@@ -16,6 +16,7 @@ module.exports = {
             },
             colors: {
                 "darkerGray": '#0C0C0C',
+                "darkGray": '#111111'
             },
         },
     },
