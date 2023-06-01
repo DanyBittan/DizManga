@@ -17,7 +17,7 @@ import { Link } from "@inertiajs/vue3";
                     <!-- Logo -->
                     <div class="shrink-0 flex items-center">
                         <Link :href="route('home')" class="mr-10" as="button">
-                            <ApplicationLogo />
+                            <ApplicationLogo class="w-16 h-16" />
                         </Link>
                         <Link
                             :href="route('home')"

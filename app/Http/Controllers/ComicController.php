@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Str as Str;
@@ -49,7 +50,27 @@ class ComicController extends Controller
         Comic::destroy($id);
         return to_route('home');
     }
-    // public function addComic()
-    // {
-    // }
+    public function addComic(Request $request)
+    {
+
+        $slug = Str::slug($request->get('title'), '-');
+        $isbn = rand(100000000, 999999999);
+        $fecha = Carbon::now()->format('Y-m-d');
+
+        $comics = new Comic([
+            'title' => $request->get('title'),
+            'publisher' => $request->get('publisher'),
+            'img' => $request->get('img'),
+            'launch_date' => $fecha,
+            'type' => $request->get('type'),
+            'genres' => $request->get('genre'),
+            'price' => $request->get('price'),
+            'ISBN' => $isbn,
+            'sinopsis' => $request->get('sinopsis'),
+            'slug' => $slug
+        ]);
+        $comics->save();
+
+        return redirect('/newComicform');
+    }
 }

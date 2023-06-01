@@ -32,9 +32,10 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/home', [ComicController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
-Route::get('/comic/{id}', [ComicController::class, 'details'])->name('comicDetails');
-Route::get('/adminView', [AdminController::class, 'adminPanel'])->name('adminView');
+Route::get('/comic/{id}', [ComicController::class, 'details'])->middleware(['auth', 'verified'])->name('comicDetails');
+Route::get('/adminView', [AdminController::class, 'adminPanel'])->middleware(['auth', 'verified'])->name('adminView');
 Route::any('/{id}/updateComic', [ComicController::class, 'updateComic'])->middleware(['auth', 'verified'])->name('updateComic');
+Route::any('/{id}/addComic', [ComicController::class, 'addComic'])->middleware(['auth', 'verified'])->name('addComic');
 Route::get('/{id}/deleteComic', [ComicController::class, 'deleteComic'])->name('deleteComic');
 
 Route::middleware('auth')->group(function () {

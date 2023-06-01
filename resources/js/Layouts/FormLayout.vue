@@ -10,22 +10,28 @@ const props = defineProps({
         required: false,
     },
 });
-
+const previewsData = props.comic ? true : false;
 const form = useForm({
-    title: props.comic.title,
-    publisher: props.comic.publisher,
-    price: props.comic.price,
-    launch: props.comic.launch_date,
-    img: props.comic.img,
-    sinopsis: props.comic.sinopsis,
+    title: previewsData ? props.comic.title : "",
+    publisher: previewsData ? props.comic.publisher : "",
+    price: previewsData ? props.comic.price : "",
+    launch: previewsData ? props.comic.launch_date : "",
+    img: previewsData ? props.comic.img : "",
+    sinopsis: previewsData ? props.comic.sinopsis : "",
 });
 
-const updateComic = () => {
-    form.post(route("updateComic", { id: props.comic.id }), {
-        preserveScroll: true,
-        onSuccess: () => emit("closeModal"),
-        onFinish: () => form.reset(),
-    });
+const comicAction = () => {
+    previewsData
+        ? form.post(route("updateComic", { id: props.comic.id }), {
+              preserveScroll: true,
+              onSuccess: () => emit("closeModal"),
+              onFinish: () => form.reset(),
+          })
+        : form.post(route("addComic"), {
+              preserveScroll: true,
+              onSuccess: () => emit("closeModal"),
+              onFinish: () => form.reset(),
+          });
 };
 const emit = defineEmits(["closeModal"]);
 </script>
@@ -49,6 +55,7 @@ const emit = defineEmits(["closeModal"]);
                     class="mt-1 ml-2 p-1 w-full"
                     required
                     autofocus
+                    placeholder="Comic title"
                     :value="form.title"
                 />
             </div>
@@ -65,6 +72,7 @@ const emit = defineEmits(["closeModal"]);
                     class="mt-1 ml-2 p-1 w-full"
                     required
                     autofocus
+                    placeholder="Publisher"
                     :value="form.publisher"
                 />
             </div>
@@ -81,6 +89,7 @@ const emit = defineEmits(["closeModal"]);
                     class="mt-1 ml-2 p-1 w-auto"
                     required
                     autofocus
+                    placeholder="Publisher"
                     :value="form.price"
                 />
                 <InputLabel
@@ -90,11 +99,12 @@ const emit = defineEmits(["closeModal"]);
                 />
                 <TextInput
                     id="launch"
-                    type="text"
+                    type="date"
                     v-model="form.launch"
                     class="mt-1 ml-2 p-1 w-1/2"
                     required
                     autofocus
+                    placeholder="Release date"
                     :value="form.launch"
                 />
             </div>
@@ -112,6 +122,7 @@ const emit = defineEmits(["closeModal"]);
                 class="mt-1 ml-2 p-1 w-full h-fit"
                 required
                 autofocus
+                placeholder="Comic portrait"
                 :value="form.img"
             />
         </div>
@@ -128,6 +139,7 @@ const emit = defineEmits(["closeModal"]);
                 class="mt-1 ml-2 p-1 w-full h-fit"
                 required
                 autofocus
+                placeholder="Sinopsis"
                 :value="form.sinopsis"
             />
         </div>
@@ -135,7 +147,9 @@ const emit = defineEmits(["closeModal"]);
             <SecondaryButton class="mr-2" @click="$emit('closeModal')">
                 Cancel
             </SecondaryButton>
-            <SecondaryButton @click="updateComic">Update</SecondaryButton>
+            <SecondaryButton @click="comicAction">
+                <slot name="buttonType" />
+            </SecondaryButton>
         </div>
     </div>
 </template>

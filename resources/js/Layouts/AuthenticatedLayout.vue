@@ -9,7 +9,7 @@ import Dropdown from "@/Components/Dropdown.vue";
         <div class="min-h-screen bg-darkerGray">
             <NavigationHeader>
                 <Dropdown
-                    :content-classes="'bg-gray-900 border-2 border-gray-950 flex flex-col'"
+                    :content-classes="'bg-neutral-900 border border-neutral-700/40  flex flex-col'"
                 >
                     <template v-slot:trigger>
                         <div
@@ -31,14 +31,14 @@ import Dropdown from "@/Components/Dropdown.vue";
                         <Link
                             as="button"
                             :href="route('profile.edit')"
-                            class="text-white hover:bg-gray-950 p-3"
+                            class="text-white hover:bg-neutral-950 p-3 border-y border-neutral-600/20"
                         >
                             Edit profile
                         </Link>
                         <Link
                             as="button"
                             :href="route('adminView')"
-                            class="text-white hover:bg-gray-950 p-3"
+                            class="text-white hover:bg-neutral-950 p-3 border-y border-neutral-600/20"
                             v-if="$page.props.auth.user.admin"
                         >
                             Admin panel
@@ -47,7 +47,7 @@ import Dropdown from "@/Components/Dropdown.vue";
                             as="button"
                             :href="route('logout')"
                             method="POST"
-                            class="text-white hover:bg-gray-950 p-3"
+                            class="text-white hover:bg-neutral-950 p-3 border-y border-neutral-600/20"
                         >
                             Log out
                         </Link>

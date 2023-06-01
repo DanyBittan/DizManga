@@ -13,15 +13,15 @@ const showForm = ref(false);
 <template>
     <div class="w-full h-full flex justify-center items-centers">
         <div
-            class="bg-gray-900 w-3/4 h-[75vh] rounded-r-xl rounded-b-none m-7 mb-0 flex"
+            class="bg-neutral-950 w-3/4 h-[75vh] rounded-md m-7 mb-0 flex border border-neutral-900"
         >
             <img
                 :src="props.comic.img"
                 alt="comicImg"
-                class="w-2/5 rounded-l-xl object-cover"
+                class="w-2/5 rounded-l-md object-cover"
             />
-            <div class="flex flex-col justify-between text-gray-500 w-full p-6">
-                <span class="text-4xl font-bold text-gray-400">{{
+            <div class="flex flex-col justify-between text-white w-full p-6">
+                <span class="text-5xl font-bold text-white">{{
                     props.comic.title
                 }}</span>
                 <span class="text-lg">ISBN: {{ props.comic.ISBN }}</span>
@@ -34,7 +34,7 @@ const showForm = ref(false);
                 <span class="text-lg"> Price: {{ props.comic.price }}€</span>
 
                 <span class="text-lg">Sinopsis:</span>
-                <div class="h-1/3 p-5 bg-gray-800 text-gray-400 rounded-lg">
+                <div class="h-1/3 p-5 bg-neutral-900 text-gray-400 rounded-lg">
                     {{ props.comic.sinopsis }}
                 </div>
             </div>
@@ -42,24 +42,24 @@ const showForm = ref(false);
     </div>
     <div class="w-3/4 m-auto p-4 flex justify-between">
         <div>
-            <Link
-                class="bg-black text-gray-300 font-bold text-xl m-2 w-1/6 p-2 rounded-xl"
+            <button
+                class="bg-black text-gray-300 font-bold text-xl m-2 w-fit p-2 rounded-xl"
                 as="button"
             >
-                Buy</Link
-            >
-            <Link
+                Buy
+            </button>
+            <button
                 as="button"
-                class="bg-black text-gray-300 font-bold text-xl m-2 w-1/6 p-2 rounded-xl"
+                class="bg-black text-gray-300 font-bold text-xl m-2 w-fit p-2 rounded-xl"
             >
                 WishList
-            </Link>
+            </button>
         </div>
         <div>
             <button
                 @click="showForm = !showForm"
                 v-if="$page.props.auth.user.admin"
-                class="bg-black text-gray-300 font-bold text-xl m-3 p-3 rounded-xl"
+                class="bg-black text-gray-300 font-bold text-xl m-2 p-2 rounded-xl"
             >
                 Update
             </button>
@@ -68,8 +68,13 @@ const showForm = ref(false);
                     <template v-slot:title>
                         <span class="text-3xl text-gray-300">Edit Comic</span>
                     </template>
-                    <template v-slot:buttonType>
-                        <SecondaryButton>Update</SecondaryButton>
+                    <template v-slot:buttonType
+                        ><img
+                            src="../../assets/edit.svg"
+                            alt="editBttn"
+                            class="w-5 h-5 mr-2"
+                        />
+                        Update
                     </template>
                 </FormLayout>
             </Modal>
@@ -77,7 +82,7 @@ const showForm = ref(false);
                 as="button"
                 :href="route('deleteComic', { id: comic.id })"
                 v-if="$page.props.auth.user.admin"
-                class="bg-red-700 text-gray-300 font-bold text-xl m-2 w-1/6 p-2 rounded-xl"
+                class="bg-red-700 text-gray-300 font-bold text-xl m-2 w-fit p-2 rounded-xl"
                 >Delete</Link
             >
         </div>
