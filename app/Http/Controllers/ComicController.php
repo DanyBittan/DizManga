@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -32,9 +33,15 @@ class ComicController extends Controller
 
     public function showMyBooks()
     {
-        $myComics =  Comic::get()->where('');
-        return Inertia::render('Comics/MyBooks');
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $my_comics = $user->MyBooks()->get();
+
+        return Inertia::render('Comics/MyBooks', [
+            "myComics" => $my_comics
+        ]);
     }
+
     public function updateComic(Request $request, $id)
     {
 

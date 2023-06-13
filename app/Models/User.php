@@ -50,7 +50,7 @@ class User extends Authenticatable
 
     public function Review()
     {
-        return $this->hasMany(Review::class, "user_id");
+        return $this->belongsToMany(Comic::class, "reviews", "user_id", "comic_id");
     }
 
     public function MyBooks()

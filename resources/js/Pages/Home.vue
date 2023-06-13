@@ -5,11 +5,11 @@ import LatestComics from "@/Components/LatestComics.vue";
 
 const props = defineProps({
     allComics: {
-        type: [Object],
+        type: Object,
         required: true,
     },
     latest: {
-        type: [Object],
+        type: Object,
         required: true,
     },
 });

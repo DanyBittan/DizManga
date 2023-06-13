@@ -1,8 +1,4 @@
 <script setup>
-import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
+import MyBooksLayout from "@/Layouts/MyBooksLayout.vue";
 </script>
-<template>
-    <AuthenticatedLayout>
-        <div class="text-white">hi</div>
-    </AuthenticatedLayout>
-</template>
+<template><MyBooksLayout></MyBooksLayout></template>

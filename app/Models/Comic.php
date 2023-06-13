@@ -22,11 +22,6 @@ class Comic extends Model
         'slug'
     ];
 
-    public function WishList()
-    {
-        return $this->belongsToMany(User::class, "wishlists", "comic_id", "user_id");
-    }
-
     public function Review()
     {
         return $this->belongsToMany(User::class, "reviews", "comic_id", "user_id");
