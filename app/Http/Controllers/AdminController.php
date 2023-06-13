@@ -11,11 +11,24 @@ use Illuminate\Support\Str as Str;
 
 class AdminController extends Controller
 {
-    public function adminPanel()
+    public function adminPanelComics()
     {
-        $allComics = Comic::all();
-        return Inertia::render('Admin/AdminPanel', [
+        $allComics = Comic::orderBy('created_at', 'desc')->get();
+        return Inertia::render('Admin/AdminPanelComics', [
             "allComics" => $allComics
         ]);
+    }
+    public function adminPanelUsers()
+    {
+        $users = User::all();
+        return Inertia::render('Admin/AdminPanelUsers', [
+            "users" => $users
+        ]);
+    }
+
+    public function adminUserDelete($id)
+    {
+        User::destroy($id);
+        return to_route('adminUsersView');
     }
 }

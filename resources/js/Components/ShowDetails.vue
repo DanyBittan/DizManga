@@ -20,21 +20,32 @@ const showForm = ref(false);
                 alt="comicImg"
                 class="w-2/5 rounded-l-md object-cover"
             />
-            <div class="flex flex-col justify-between text-white w-full p-6">
-                <span class="text-5xl font-bold text-white">{{
-                    props.comic.title
-                }}</span>
-                <span class="text-lg">ISBN: {{ props.comic.ISBN }}</span>
-                <span class="text-lg"
-                    >Publisher: {{ props.comic.publisher }}</span
+            <div class="flex flex-col justify-between text-gray-300 w-full p-6">
+                <div class="flex justify-between">
+                    <span class="text-5xl font-bold text-gray-200">{{
+                        props.comic.title
+                    }}</span>
+                    <span class="text-2xl text-yellow-300 font-bold">
+                        {{ props.comic.price }}€</span
+                    >
+                </div>
+                <span class="text-lg text-white/50 font-bold">
+                    {{ props.comic.launch_date }}</span
                 >
-                <span class="text-lg"> {{ props.comic.launch_date }}</span>
-                <span class="text-lg"> {{ props.comic.type }}</span>
-                <span class="text-lg"> Genres: {{ props.comic.genres }}</span>
-                <span class="text-lg"> Price: {{ props.comic.price }}€</span>
+                <span class="text-xl font-bold"> {{ props.comic.ISBN }}</span>
+                <span class="text-xl font-bold">{{
+                    props.comic.publisher
+                }}</span>
+                <span class="text-xl font-bold">
+                    {{ props.comic.launch_date }}</span
+                >
+                <span class="text-xl font-bold"> {{ props.comic.type }}</span>
+                <span class="text-xl font-bold"> {{ props.comic.genres }}</span>
 
-                <span class="text-lg">Sinopsis:</span>
-                <div class="h-1/3 p-5 bg-neutral-900 text-gray-400 rounded-lg">
+                <span class="text-xl font-bold">Sinopsis:</span>
+                <div
+                    class="h-1/3 p-5 bg-neutral-900 text-gray-400 rounded-xl overflow-auto"
+                >
                     {{ props.comic.sinopsis }}
                 </div>
             </div>
@@ -43,23 +54,23 @@ const showForm = ref(false);
     <div class="w-3/4 m-auto p-4 flex justify-between">
         <div>
             <button
-                class="bg-black text-gray-300 font-bold text-xl m-2 w-fit p-2 rounded-xl"
+                class="bg-black border border-gray-600/50 text-gray-300 font-bold text-xl m-2 w-20 p-2 rounded-xl"
                 as="button"
             >
                 Buy
             </button>
             <button
                 as="button"
-                class="bg-black text-gray-300 font-bold text-xl m-2 w-fit p-2 rounded-xl"
+                class="bg-black border border-gray-600/50 text-gray-300 font-bold text-xl m-2 w-20 p-2 rounded-xl"
             >
-                WishList
+                Save
             </button>
         </div>
         <div>
             <button
                 @click="showForm = !showForm"
-                v-if="$page.props.auth.user.admin"
-                class="bg-black text-gray-300 font-bold text-xl m-2 p-2 rounded-xl"
+                v-if="$page.props.auth.user?.admin"
+                class="bg-blue-800 w-32 border border-gray-600/50 text-gray-300 font-bold text-xl m-2 p-2 rounded-xl"
             >
                 Update
             </button>
@@ -78,13 +89,6 @@ const showForm = ref(false);
                     </template>
                 </FormLayout>
             </Modal>
-            <Link
-                as="button"
-                :href="route('deleteComic', { id: comic.id })"
-                v-if="$page.props.auth.user.admin"
-                class="bg-red-700 text-gray-300 font-bold text-xl m-2 w-fit p-2 rounded-xl"
-                >Delete</Link
-            >
         </div>
     </div>
 </template>

@@ -27,16 +27,15 @@ Route::get('/', function () {
     ]);
 });
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-Route::get('/home', [ComicController::class, 'index'])->middleware(['auth', 'verified'])->name('home');
-Route::get('/comic/{id}', [ComicController::class, 'details'])->middleware(['auth', 'verified'])->name('comicDetails');
-Route::get('/adminView', [AdminController::class, 'adminPanel'])->middleware(['auth', 'verified'])->name('adminView');
+Route::get('/home', [ComicController::class, 'index'])->name('home');
+Route::get('/comic/{id}', [ComicController::class, 'details'])->name('comicDetails');
+Route::get('/adminView/comics', [AdminController::class, 'adminPanelComics'])->middleware(['auth', 'verified'])->name('adminComicsView');
+Route::get('/mybooks', [ComicController::class, 'showMyBooks'])->middleware(['auth', 'verified'])->name('myBooks');
+Route::get('/adminView/users', [AdminController::class, 'adminPanelUsers'])->middleware(['auth', 'verified'])->name('adminUsersView');
+Route::get('/{id}/adminDeleteUser/', [AdminController::class, 'adminUserDelete'])->middleware(['auth', 'verified'])->name('adminUserDelete');
 Route::any('/{id}/updateComic', [ComicController::class, 'updateComic'])->middleware(['auth', 'verified'])->name('updateComic');
-Route::any('/{id}/addComic', [ComicController::class, 'addComic'])->middleware(['auth', 'verified'])->name('addComic');
-Route::get('/{id}/deleteComic', [ComicController::class, 'deleteComic'])->name('deleteComic');
+Route::any('/addComic', [ComicController::class, 'addComic'])->middleware(['auth', 'verified'])->name('addComic');
+Route::get('/{id}/deleteComic', [ComicController::class, 'deleteComic'])->middleware(['auth', 'verified'])->name('deleteComic');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

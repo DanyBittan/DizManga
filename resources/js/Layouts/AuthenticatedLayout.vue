@@ -10,6 +10,7 @@ import Dropdown from "@/Components/Dropdown.vue";
             <NavigationHeader>
                 <Dropdown
                     :content-classes="'bg-neutral-900 border border-neutral-700/40  flex flex-col'"
+                    v-if="$page.props.auth.user"
                 >
                     <template v-slot:trigger>
                         <div
@@ -37,7 +38,7 @@ import Dropdown from "@/Components/Dropdown.vue";
                         </Link>
                         <Link
                             as="button"
-                            :href="route('adminView')"
+                            :href="route('adminComicsView')"
                             class="text-white hover:bg-neutral-950 p-3 border-y border-neutral-600/20"
                             v-if="$page.props.auth.user.admin"
                         >
@@ -53,6 +54,27 @@ import Dropdown from "@/Components/Dropdown.vue";
                         </Link>
                     </template>
                 </Dropdown>
+                <div
+                    class="flex justify-between text-white items-center"
+                    v-if="!$page.props.auth.user"
+                >
+                    <div>
+                        <Link
+                            as="button"
+                            :href="route('login')"
+                            class="bg-gray-800 hover:bg-gray-700 rounded-xl px-3 py-2 m-2"
+                        >
+                            Login
+                        </Link>
+                        <Link
+                            as="button"
+                            :href="route('register')"
+                            class="bg-gray-800 hover:bg-gray-700 rounded-xl px-3 py-2 m-2"
+                        >
+                            Register
+                        </Link>
+                    </div>
+                </div>
             </NavigationHeader>
             <main>
                 <slot />

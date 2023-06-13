@@ -37,6 +37,7 @@ class DatabaseSeeder extends Seeder
             foreach ($users as $user) {
                 if (rand(0, 2) == 2) {
                     $comic->MyBooks()->attach($user);
+                    $comic->WishList()->attach($user);
                     \App\Models\Review::factory(1)->create([
                         "user_id" => $user->id,
                         "comic_id" => $comic->id,

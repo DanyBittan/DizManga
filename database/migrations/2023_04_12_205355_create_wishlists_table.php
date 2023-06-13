@@ -15,7 +15,6 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('comic_id')->constrained()->onUpdate('cascade')->onDelete('cascade');
             $table->primary(['user_id', 'comic_id']);
-            $table->boolean('likes');
             $table->timestamps();
         });
     }

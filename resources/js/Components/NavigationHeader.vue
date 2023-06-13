@@ -22,8 +22,14 @@ import { Link } from "@inertiajs/vue3";
                         <Link
                             :href="route('home')"
                             as="button"
-                            class="text-white hover:border-b border-white h-full flex items-center"
+                            class="text-white hover:border-b border-white h-full flex items-center mx-4"
                             >Home</Link
+                        >
+                        <Link
+                            :href="route('myBooks')"
+                            as="button"
+                            class="text-white hover:border-b border-white h-full flex items-center mx-4"
+                            >Mybooks</Link
                         >
                     </div>
                 </div>

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
-use Carbon\Carbon;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Str as Str;
 use Inertia\Response;
 
@@ -15,8 +16,10 @@ class ComicController extends Controller
     public function index()
     {
         $allComics = Comic::all();
+        $latestComic = Comic::take(10)->latest()->get();
         return Inertia::render('Home', [
-            "allComics" => $allComics
+            "allComics" => $allComics,
+            "latest" => $latestComic
         ]);
     }
     public function details($id)
@@ -25,6 +28,12 @@ class ComicController extends Controller
         return Inertia::render('Comics/ComicDetails', [
             "comic" => $comic
         ]);
+    }
+
+    public function showMyBooks()
+    {
+        $myComics =  Comic::get()->where('');
+        return Inertia::render('Comics/MyBooks');
     }
     public function updateComic(Request $request, $id)
     {
@@ -41,29 +50,27 @@ class ComicController extends Controller
             'slug' => $slug,
         ]);
 
-        // return redirect()->route('updateForm', $comics->id);
         return to_route('comicDetails', $comics->id);
         compact('comics');
     }
     public function deleteComic($id)
     {
         Comic::destroy($id);
-        return to_route('home');
+        return to_route('adminComicsView');
     }
     public function addComic(Request $request)
     {
 
         $slug = Str::slug($request->get('title'), '-');
         $isbn = rand(100000000, 999999999);
-        $fecha = Carbon::now()->format('Y-m-d');
 
         $comics = new Comic([
             'title' => $request->get('title'),
             'publisher' => $request->get('publisher'),
             'img' => $request->get('img'),
-            'launch_date' => $fecha,
+            'launch_date' => $request->get('launch'),
             'type' => $request->get('type'),
-            'genres' => $request->get('genre'),
+            'genres' => $request->get('genres'),
             'price' => $request->get('price'),
             'ISBN' => $isbn,
             'sinopsis' => $request->get('sinopsis'),
@@ -71,6 +78,6 @@ class ComicController extends Controller
         ]);
         $comics->save();
 
-        return redirect('/newComicform');
+        return redirect(route('adminComicsView'));
     }
 }
