@@ -11,16 +11,16 @@ import { Link } from "@inertiajs/vue3";
             /></Link>
             <Link
                 :href="route('adminComicsView')"
-                class="text-gray-400 text-xl font-bold m-3"
+                class="text-gray-300 text-2xl font-semibold py-3 px-5 hover:bg-stone-800 w-full"
                 >Comic</Link
             >
             <Link
                 :href="route('adminUsersView')"
-                class="text-gray-400 text-xl font-bold m-3"
+                class="text-gray-300 text-2xl font-semibold py-3 px-5 hover:bg-stone-800 w-full"
                 >Users</Link
             >
         </div>
-        <div class="w-full h-screen overflow-scroll bg-darkerGray p-6">
+        <div class="w-full min-h-screen overflow-scroll bg-darkerGray p-6">
             <slot />
         </div>
     </div>

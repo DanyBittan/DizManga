@@ -31,7 +31,7 @@ const submit = () => {
 
 <template>
     <div
-        class="bg-darkerGray w-full h-screen flex flex-col justify-center items-center"
+        class="bg-darkerGray w-full min-h-screen flex flex-col justify-center items-center"
     >
         <Head title="Log in" />
         <div v-if="status" class="mb-4 font-medium text-sm text-green-600">

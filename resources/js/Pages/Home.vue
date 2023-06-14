@@ -18,7 +18,7 @@ const props = defineProps({
     <AuthenticatedLayout>
         <ComicScroll :comics="allComics" />
         <div
-            class="w-full h-full text-gray-400 px-10 py-8 my-5 text-4xl font-bold"
+            class="w-full min-h-full h-full text-gray-400 px-10 mt-10 text-4xl font-bold"
         >
             Latest
             <LatestComics :latest="latest" />

@@ -6,7 +6,7 @@ import Dropdown from "@/Components/Dropdown.vue";
 
 <template>
     <div>
-        <div class="min-h-screen bg-darkerGray">
+        <div class="min-h-screen h-full bg-darkerGray">
             <NavigationHeader>
                 <Dropdown
                     :content-classes="'bg-neutral-900 border border-neutral-700/40  flex flex-col'"

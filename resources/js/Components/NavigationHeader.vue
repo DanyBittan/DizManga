@@ -1,17 +1,13 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
-import Dropdown from "@/Components/Dropdown.vue";
-import DropdownLink from "@/Components/DropdownLink.vue";
-import NavLink from "@/Components/NavLink.vue";
-import ResponsiveNavLink from "@/Components/ResponsiveNavLink.vue";
 import { Link } from "@inertiajs/vue3";
 </script>
 <template>
     <nav class="bg-darkerGray">
         <!-- Primary Navigation Menu -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-full sm:px-6 lg:px-8">
             <div
-                class="flex justify-between h-16 border-b-2 border-gray-700 items-center"
+                class="flex justify-between h-18 border-b border-gray-700/80 items-center"
             >
                 <div>
                     <!-- Logo -->
@@ -22,10 +18,11 @@ import { Link } from "@inertiajs/vue3";
                         <Link
                             :href="route('home')"
                             as="button"
-                            class="text-white hover:border-b border-white h-full flex items-center mx-4"
-                            >Home</Link
-                        >
+                            class="text-white hover:border-b border-white h-fit flex items-center mx-4"
+                            >Home
+                        </Link>
                         <Link
+                            v-if="$page.props.auth.user"
                             :href="route('myBooks')"
                             as="button"
                             class="text-white hover:border-b border-white h-full flex items-center mx-4"

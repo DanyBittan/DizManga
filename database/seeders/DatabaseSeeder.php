@@ -36,12 +36,14 @@ class DatabaseSeeder extends Seeder
         foreach ($comics as $comic) {
             foreach ($users as $user) {
                 if (rand(0, 2) == 2) {
-                    $comic->MyBooks()->attach($user);
-                    $user->WishList()->attach($comic);
+                    $user->MyBooks()->attach($comic);
                     \App\Models\Review::factory(1)->create([
                         "user_id" => $user->id,
                         "comic_id" => $comic->id,
                     ]);
+                }
+                if (rand(0, 3) == 3) {
+                    $user->WishList()->attach($comic);
                 }
             }
         }

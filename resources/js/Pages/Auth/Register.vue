@@ -24,7 +24,7 @@ const submit = () => {
 
 <template>
     <div
-        class="bg-darkerGray w-full h-screen flex flex-col justify-center items-center"
+        class="bg-darkerGray w-full min-h-screen flex flex-col justify-center items-center"
     >
         <Head title="Register" />
         <ApplicationLogo class="m-6" />

@@ -1,8 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import { Link } from "@inertiajs/vue3";
-import Modal from "@/Components/Modal.vue";
-import FormLayout from "@/Layouts/FormLayout.vue";
 import AdminLayout from "@/Components/AdminLayout.vue";
 
 const props = defineProps({
@@ -11,12 +9,11 @@ const props = defineProps({
         type: Object,
     },
 });
-const showUpdateForm = ref(false);
 </script>
 <template>
     <AdminLayout>
         <div
-            class="text-white w-11/12 h-44 flex my-8 rounded-l-xl"
+            class="text-white w-11/12 h-36 flex m-12 rounded-l-xl"
             v-for="user in users"
         >
             <img
@@ -41,7 +38,7 @@ const showUpdateForm = ref(false);
                 </span>
                 <Link
                     :href="route('adminUserDelete', { id: user.id })"
-                    class="mt-auto"
+                    class="mt-auto w-fit"
                     v-if="user.id != $page.props.auth.user.id && !user.admin"
                 >
                     <img
@@ -52,15 +49,6 @@ const showUpdateForm = ref(false);
                 </Link>
             </div>
         </div>
-        <!-- <Modal :show="showUpdateForm">
-            <FormLayout @close-modal="showModal" :comic="comic[index]">
-                <template v-slot:title>
-                    <span class="text-3xl text-gray-300">Edit Comic</span>
-                </template>
-                <template v-slot:buttonType>
-                    <SecondaryButton>Update</SecondaryButton>
-                </template>
-            </FormLayout>
-        </Modal> -->
+        <div class="text-white">aaa</div>
     </AdminLayout>
 </template>

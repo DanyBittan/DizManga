@@ -41,6 +41,16 @@ class ComicController extends Controller
             "myComics" => $my_comics
         ]);
     }
+    public function showWishList()
+    {
+        $user_id = Auth::user()->id;
+        $user = User::find($user_id);
+        $my_wishlist = $user->WishList()->get();
+
+        return Inertia::render('Comics/WishList', [
+            "myWishList" => $my_wishlist
+        ]);
+    }
 
     public function updateComic(Request $request, $id)
     {
