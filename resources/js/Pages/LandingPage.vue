@@ -2,30 +2,31 @@
 import { Link } from "@inertiajs/vue3";
 </script>
 <template>
+    <link rel="stylesheet" href="./landing.scss" />
     <header>
-        <div>
-            <Link :href="route('login')" class="log" as="button"> Login </Link>
-            <Link :href="route('register')" class="reg" as="button">
+        <div class="logo">
+            <div id="logo__webLogo">
+                <img src="../../assets/logoLanding.svg" alt="logo" />
+            </div>
+            <span id="logo__webTitle">DizManga</span>
+        </div>
+        <div class="login-buttons">
+            <Link :href="route('login')" class="login-buttons__log" as="button">
+                Login
+            </Link>
+            <Link
+                :href="route('register')"
+                class="login-buttons__reg"
+                as="button"
+            >
                 Register
             </Link>
         </div>
     </header>
+
     <body></body>
 </template>
 
 <style scoped>
-header {
-    background-color: rgb(24 24 27);
-    height: 8vh;
-    color: gray;
-}
-body {
-    background-color: rgb(24 24 27);
-    background-image: url("https://img.freepik.com/vektoren-kostenlos/website-im-bau-hintergrund_1361-1388.jpg?w=2000");
-    background-repeat: no-repeat;
-    background-size: cover;
-    width: 100%;
-    height: 100vh;
-    color: gray;
-}
+@import "../../css/landing.scss";
 </style>

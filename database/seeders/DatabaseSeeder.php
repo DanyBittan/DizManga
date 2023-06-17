@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
+
     public function run()
     {
         \App\Models\User::create([

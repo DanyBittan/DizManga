@@ -19,8 +19,8 @@ class ReviewFactory extends Factory
         return [
             'comment' => $this->faker->text(),
             'likes' => $this->faker->randomNumber(6, false),
-            'dislikes' => $this->faker->randomNumber(6, false),
-            'rating' => $this->faker->randomFloat(1, 1, 5)
+            'dislikes' => $this->faker->randomNumber(4, false),
+            'rating' => $this->faker->numberBetween(20, 100)
         ];
     }
 }

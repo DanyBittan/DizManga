@@ -41,13 +41,14 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/mybooks', [ComicController::class, 'showMyBooks'])->middleware(['auth', 'verified'])->name('myBooks');
     Route::get('/wishList', [ComicController::class, 'showWishList'])->middleware(['auth', 'verified'])->name('wishList');
+    Route::post('/{id}/postReview', [ComicController::class, 'postReview'])->middleware(['auth', 'verified'])->name('postReview');
 });
 
 Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/adminView/users', [AdminController::class, 'adminPanelUsers'])->middleware(['auth', 'verified'])->name('adminUsersView');
     Route::get('/{id}/adminDeleteUser/', [AdminController::class, 'adminUserDelete'])->middleware(['auth', 'verified'])->name('adminUserDelete');
     Route::any('/{id}/updateComic', [ComicController::class, 'updateComic'])->middleware(['auth', 'verified'])->name('updateComic');
-    Route::any('/addComic', [ComicController::class, 'addComic'])->middleware(['auth', 'verified'])->name('addComic');
+    Route::put('/addComic', [ComicController::class, 'addComic'])->middleware(['auth', 'verified'])->name('addComic');
     Route::get('/{id}/deleteComic', [ComicController::class, 'deleteComic'])->middleware(['auth', 'verified'])->name('deleteComic');
     Route::get('/adminView/comics', [AdminController::class, 'adminPanelComics'])->middleware(['auth', 'verified'])->name('adminComicsView');
 });

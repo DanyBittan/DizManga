@@ -84,34 +84,12 @@ const showAddForm = ref(false);
                 :href="route('deleteComic', { id: comic.id })"
                 class="flex flex-col w-24 items-center justify-center bg-red-800 rounded-r-xl hover:bg-red-600"
             >
-                <!-- <button class="h-1/2 flex items-center justify-center">
-                    <span
-                        class="w-6 h-6"
-                        @click="showUpdateForm = !showUpdateForm"
-                        ><img
-                            src="../../../assets/edit.svg"
-                            alt="editBttn"
-                            class="w-6 h-6"
-                        />
-                    </span>
-                </button> -->
-
                 <img
                     src="../../../assets/delete.svg"
-                    alt="editBttn"
+                    alt="deleteBttn"
                     class="w-7 h-7"
                 />
             </Link>
         </div>
-        <!-- <Modal :show="showUpdateForm">
-            <FormLayout @close-modal="showModal" :comic="comic[index]">
-                <template v-slot:title>
-                    <span class="text-3xl text-gray-300">Edit Comic</span>
-                </template>
-                <template v-slot:buttonType>
-                    <SecondaryButton>Update</SecondaryButton>
-                </template>
-            </FormLayout>
-        </Modal> -->
     </AdminLayout>
 </template>

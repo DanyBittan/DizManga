@@ -24,7 +24,7 @@ class Comic extends Model
 
     public function Review()
     {
-        return $this->belongsToMany(User::class, "reviews", "comic_id", "user_id");
+        return $this->hasMany(Review::class);
     }
 
     public function MyBooks()

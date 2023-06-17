@@ -3,6 +3,7 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
+import { ref } from "vue";
 
 const props = defineProps({
     comic: {
@@ -10,7 +11,10 @@ const props = defineProps({
         required: false,
     },
 });
+
+const genres = ref([]);
 const previewsData = props.comic ? true : false;
+
 const form = useForm({
     title: previewsData ? props.comic.title : "",
     publisher: previewsData ? props.comic.publisher : "",
@@ -103,7 +107,7 @@ const emit = defineEmits(["closeModal"]);
                 <InputLabel for="img" value="Image:" class="m-2 w-1/5" />
                 <TextInput
                     id="img"
-                    type="url"
+                    type="text"
                     v-model="form.img"
                     class="mt-1 ml-2 p-1 w-full h-fit"
                     required
@@ -144,25 +148,15 @@ const emit = defineEmits(["closeModal"]);
                     <option value="manhwa">Manhwa</option>
                 </select>
                 <InputLabel for="genres" value="Genres:" class="m-3 w-1/6" />
-                <TextInput
-                    id="genre"
-                    type="text"
-                    v-model="form.genres"
-                    class="mt-1 ml-2 p-1 w-full h-fit"
-                    required
-                    autofocus
-                    placeholder="Genres"
-                    :value="form.genres"
-                />
-                <!-- <div class="w-full p-4 flex justify-between flex-wrap">
+
+                <div class="w-full p-4 flex justify-between flex-wrap">
                     <label class="text-gray-300"
                         ><input
                             type="checkbox"
+                            ref="genres"
                             id="action"
-                            value="action"
-                            v-model="form.type"
+                            value="Action"
                             required
-                            :value="form.type"
                             class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
                         />
                         Action</label
@@ -170,8 +164,9 @@ const emit = defineEmits(["closeModal"]);
                     <label class="text-gray-300"
                         ><input
                             type="checkbox"
+                            ref="genres"
                             id="romance"
-                            value="romance"
+                            value="Romance"
                             required
                             class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
                         />
@@ -180,8 +175,9 @@ const emit = defineEmits(["closeModal"]);
                     <label class="text-gray-300"
                         ><input
                             type="checkbox"
+                            ref="genres"
                             id="fantasy"
-                            value="fantasy"
+                            value="Fantasy"
                             required
                             class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
                         />
@@ -190,8 +186,9 @@ const emit = defineEmits(["closeModal"]);
                     <label class="text-gray-300"
                         ><input
                             type="checkbox"
+                            ref="genres"
                             id="darkFantasy"
-                            value="darkFantasy"
+                            value="Dark Fantasy"
                             required
                             class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
                         />
@@ -200,8 +197,9 @@ const emit = defineEmits(["closeModal"]);
                     <label class="text-gray-300"
                         ><input
                             type="checkbox"
+                            ref="genres"
                             id="fight"
-                            value="fight"
+                            value="Fight"
                             required
                             class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
                         />
@@ -210,19 +208,20 @@ const emit = defineEmits(["closeModal"]);
                     <label class="text-gray-300"
                         ><input
                             type="checkbox"
+                            ref="genres"
                             id="dailyLife"
-                            value="dailyLife"
+                            value="Daily Life"
                             required
                             class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
                         />
                         Daily Life</label
                     >
-                </div> -->
+                </div>
             </div>
         </div>
 
         <div class="mt-6 flex justify-end">
-            <SecondaryButton class="mr-2" @click="$emit('closeModal')">
+            <SecondaryButton class="mr-2" @click="() => $emit('closeModal')">
                 Cancel
             </SecondaryButton>
             <SecondaryButton @click="comicAction">

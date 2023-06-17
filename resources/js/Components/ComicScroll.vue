@@ -6,7 +6,7 @@ const props = defineProps({
 </script>
 <template>
     <div
-        class="w-full h-[60vh] bg-black rounded-lg mt-10 overflow-hidden text-white flex flex-wrap justify-center items-center p-6"
+        class="w-full h-[60vh] rounded-lg mt-10 overflow-hidden text-white flex flex-wrap justify-center items-center p-6"
     >
         <div
             class="w-[32vw] h-full px-28 py-7 rounded-xl"

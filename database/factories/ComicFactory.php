@@ -29,4 +29,16 @@ class ComicFactory extends Factory
             'slug' => $this->faker->slug()
         ];
     }
+
+    /*  public function genresGenerator(): array
+    {
+        $genres = ['Action', 'Romance', 'Daily Life', 'Fantasy', 'Dark Fantasy', 'Fight'];
+
+        foreach ($genres as $genre) {
+            if (rand(0, 2) == 1) {
+                $savedGenres = $genre;
+            }
+        }
+        return $savedGenres;
+    } */
 }

@@ -20,7 +20,7 @@ import { Link } from "@inertiajs/vue3";
                 >Users</Link
             >
         </div>
-        <div class="w-full min-h-screen overflow-scroll bg-darkerGray p-6">
+        <div class="w-full min-h-screen overflow-auto bg-darkerGray p-6">
             <slot />
         </div>
     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
+use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -26,9 +27,32 @@ class ComicController extends Controller
     public function details($id)
     {
         $comic = Comic::find($id);
+        $comic_reviews = $comic->Review()
+            ->join('users', 'reviews.user_id', '=', 'users.id')
+            ->select('reviews.*', 'users.user_img', 'users.name')
+            ->orderBy('likes', 'desc')
+            ->get();
         return Inertia::render('Comics/ComicDetails', [
-            "comic" => $comic
+            "comic" => $comic,
+            "reviews" => $comic_reviews,
         ]);
+    }
+
+    public function postReview(Request $request, $id)
+    {
+        $comic = Comic::find($id);
+        $user_id = Auth::user()->id;
+        $review = new Review([
+            'user_id' => $user_id,
+            'comic_id' => $comic->id,
+            'comment' => $request->get('new_review'),
+            'likes' => 0,
+            'dislikes' => 0,
+            'rating' => $request->get('rating'),
+        ]);
+        $review->save();
+
+        return to_route('comicDetails', $comic->id);
     }
 
     public function showMyBooks()
@@ -41,6 +65,7 @@ class ComicController extends Controller
             "myComics" => $my_comics
         ]);
     }
+
     public function showWishList()
     {
         $user_id = Auth::user()->id;
@@ -68,7 +93,6 @@ class ComicController extends Controller
         ]);
 
         return to_route('comicDetails', $comics->id);
-        compact('comics');
     }
     public function deleteComic($id)
     {
@@ -77,7 +101,6 @@ class ComicController extends Controller
     }
     public function addComic(Request $request)
     {
-
         $slug = Str::slug($request->get('title'), '-');
         $isbn = rand(100000000, 999999999);
 

@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('comment');
             $table->integer('likes');
             $table->integer('dislikes');
-            $table->decimal('rating');
+            $table->integer('rating');
             $table->timestamps();
         });
     }

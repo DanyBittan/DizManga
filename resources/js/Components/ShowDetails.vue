@@ -1,9 +1,8 @@
 <script setup>
 import { ref } from "vue";
-import { Link } from "@inertiajs/vue3";
 import Modal from "@/Components/Modal.vue";
 import FormLayout from "@/Layouts/FormLayout.vue";
-import SecondaryButton from "@/Components/SecondaryButton.vue";
+import Save from "./Save.vue";
 
 const props = defineProps({
     comic: Object,
@@ -64,25 +63,31 @@ const showForm = ref(false);
         </div>
     </div>
     <div class="w-2/3 m-auto p-4 flex justify-between">
-        <div>
+        <div class="flex">
             <button
-                class="bg-black border border-gray-600/50 text-gray-300 font-bold text-xl m-2 w-20 p-2 rounded-xl"
+                class="bg-black border border-gray-600/50 text-gray-300 font-bold text-xl m-2 w-28 px-3 py-2 rounded-xl flex justify-between"
                 as="button"
             >
                 Buy
+                <img
+                    src="../../assets/shoppingCart.svg"
+                    alt="shopping cart"
+                    class="w-7 h-7"
+                />
             </button>
             <button
                 as="button"
-                class="bg-black border border-gray-600/50 text-gray-300 font-bold text-xl m-2 w-20 p-2 rounded-xl"
+                class="bg-black border border-gray-600/50 text-gray-300 font-bold text-xl m-2 w-28 px-3 py-2 rounded-xl flex justify-between"
             >
-                Save
+                <span class="mx-1">Save</span>
+                <Save :color="none"></Save>
             </button>
         </div>
         <div>
             <button
                 @click="showForm = !showForm"
                 v-if="$page.props.auth.user?.admin"
-                class="bg-blue-800 w-32 border border-gray-600/50 text-gray-300 font-bold text-xl m-2 p-2 rounded-xl"
+                class="bg-blue-700 hover:bg-blue-500 hover:text-black w-32 border border-gray-600/50 text-gray-300 font-bold text-xl m-2 py-2 px-3 rounded-xl"
             >
                 Update
             </button>
