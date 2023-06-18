@@ -12,11 +12,16 @@ const props = defineProps({
         type: Object,
         required: true,
     },
+    wishlist: {
+        type: Object,
+        required: true,
+    },
 });
+const isInWishlist = props.wishlist != "" ? true : false;
 </script>
 <template>
     <AuthenticatedLayout>
-        <ShowDetails :comic="comic" />
+        <ShowDetails :comic="comic" :wishlist="isInWishlist" />
         <Reviews :reviews="reviews" :comicId="comic.id" />
     </AuthenticatedLayout>
 </template>

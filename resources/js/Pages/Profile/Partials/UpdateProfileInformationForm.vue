@@ -44,7 +44,7 @@ const form = useForm({
             <TextInput
                 id="email"
                 type="email"
-                class="block w-auto min-w-full border-none bg-inherit text-lg hover:bg-stone-900"
+                class="block w-auto min-w-full border-none bg-inherit text-lg mt-4 hover:bg-stone-900"
                 v-model="form.email"
                 required
                 autocomplete="username"

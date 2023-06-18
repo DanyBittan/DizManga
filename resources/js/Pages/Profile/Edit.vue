@@ -52,9 +52,9 @@ const user = usePage().props.auth.user;
                         />
                     </div>
                 </Modal>
-                <div class="p-4 sm:p-8 shadow sm:rounded-lg">
-                    <DeleteUserForm class="max-w-xl" />
-                </div>
+            </div>
+            <div class="p-4 sm:p-8 shadow sm:rounded-lg">
+                <DeleteUserForm class="max-w-xl" />
             </div>
         </div>
     </AuthenticatedLayout>

@@ -1,0 +1,189 @@
+@import 'buttonanimation.scss';
+@import 'landing.scss';
+@import 'secondview.scss';
+
+* {
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+  }
+  
+
+@media (max-width: 470px) {
+    
+    .welcome-section__background{
+        width: 85%;
+        height: 75%;
+        flex-direction: column;
+    }
+    
+    #left-side{
+        width: 100%;
+        height: 30%;
+        padding: 1em;
+    }
+    
+    #right-side{
+        width: 100%;
+        height: 70%;
+    }
+    
+    
+    #welcome-logo__custom{
+        height: 15em;
+        width: 15em;
+    }
+    
+    #welcome-text{
+        font-size: 1em;
+        font-weight: lighter;
+    }
+    
+    #welcome-text__title{
+        font-size: 2.5em;
+        font-weight: bold;
+    }
+    
+    #welcome-text__title:nth-child(odd){
+        font-size: 1.7em;
+        font-weight: lighter;
+    }
+    .login-buttons {
+        display: none;
+    }
+    #see-more{
+        margin-top: 1em;
+    }
+    #video-container{
+        object-fit: fill; 
+    }
+    #img:nth-child(3n){
+        display: none;
+    }
+    .banner__text{
+        font-size: 1.5em;
+    }
+    .banner{
+        height: 20%;
+    }
+    #img{
+        width: 60%;
+        height: 65%;
+    }
+  }
+@media (min-width: 470px) and (max-width: 768px){
+    .welcome-section__background{
+        width: 85%;
+        height: 80%;
+        flex-direction: column;
+    }
+    
+    #left-side{
+        width: 100%;
+        height: 30%;
+        padding: 1em;
+    }
+    
+    #right-side{
+        width: 100%;
+        height: 70%;
+    }
+    
+    
+    #welcome-logo__custom{
+        height: 15em;
+        width: 15em;
+    }
+    
+    #welcome-text{
+        font-size: 1.3em;
+    }
+    
+    #welcome-text__title{
+        font-size: 3.5em;
+    }
+    
+    #welcome-text__title:nth-child(odd){
+        font-size: 2em;
+    }
+    .login-buttons {
+        display: none;
+    }
+    #see-more{
+        margin-top: 1em;
+    }
+    #img:nth-child(3n){
+        display: none;
+    }
+    .banner__text{
+        font-size: 2.3em;
+    }
+    .banner{
+        height: 22%;
+    }
+    #img{
+        width: 42%;
+        height:70%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1028px) {
+    .welcome-section__background{
+        width: 85%;
+        height: 70%;
+    }
+    
+    #left-side{
+        width: 45%;
+        height: 100%;
+        padding: 1em;
+    }
+    
+    #right-side{
+        width: 55%;
+        height: 100%;
+    }
+    
+    
+    #welcome-logo__custom{
+        height: 18em;
+        width: 18em;
+    }
+    
+    #welcome-text{
+        font-size: 1.3em;
+    }
+    
+    #welcome-text__title{
+        font-size: 3.5em;
+    }
+    
+    #welcome-text__title:nth-child(odd){
+        font-size: 2em;
+    }
+    #see-more{
+        margin-top: 1em;
+    }
+    #img:nth-child(3n){
+        display: none;
+    }
+    .banner__text{
+        font-size: 3.5em;
+    }
+    .banner{
+        height: 25%;
+    }
+    #img{
+        width: 35%;
+        height: 70%;
+    }
+}
+
+@media (min-width: 1028px) and (max-width: 1280px) {
+    #img{
+        width: 37%;
+        height: 80%;
+    }
+    #img:nth-child(3n){
+        display: none;
+    }
+}

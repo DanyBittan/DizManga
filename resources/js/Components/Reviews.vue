@@ -1,6 +1,5 @@
 <script setup>
-import { useForm } from "@inertiajs/vue3";
-import TextInput from "./TextInput.vue";
+import { Link, useForm } from "@inertiajs/vue3";
 import { ref } from "vue";
 
 const props = defineProps({
@@ -23,7 +22,7 @@ const form = useForm({
 const submit = () => {
     form.post(route("postReview", { id: props.comicId }), {
         preserveScroll: true,
-        onFinish: () => form.reset(),
+        onSuccess: () => form.reset(),
     });
 };
 </script>
@@ -49,18 +48,18 @@ const submit = () => {
                 <textarea
                     v-model="form.new_review"
                     placeholder="Write a review for this comic!!"
-                    class="bg-neutral-800 h-20 w-[85vw] text-white text-lg rounded-xl resize-none border-gray-800 mt-4 mr-4 placeholder-white/60"
+                    class="bg-neutral-800 h-20 w-full text-white text-lg rounded-xl resize-none border-gray-800 mt-4 placeholder-white/60"
                 >
                 </textarea>
             </div>
             <button
-                class="text-gray-200 p-2 w-[15vh] bg-neutral-600 rounded-xl mt-4"
+                class="text-gray-200 p-2 md:w-[15vh] w-full bg-neutral-600 rounded-xl mt-4"
             >
                 Submit
             </button>
         </form>
         <div
-            class="w-3/4 max-h-fit h-40 bg-neutral-800 my-6 text-white py-4 px-6 rounded-lg flex items-center"
+            class="w-full md:w-11/12 max-h-fit h-40 bg-neutral-800 my-6 text-white py-4 px-6 rounded-lg flex items-center"
             v-for="review in reviews"
         >
             <img
@@ -81,15 +80,36 @@ const submit = () => {
                     class="w-full h-full overflow-auto px-6 mt-1 text-lg text-gray-200"
                     >{{ review.comment }}</span
                 >
-                <div class="w-auto flex justify-end items-end h-fit self-end">
-                    <img src="../../assets/like.svg" alt="" class="w-6 h-6" />
-                    <span class="mx-4">{{ review.likes }}</span>
-                    <img
-                        src="../../assets/dislike.svg"
-                        alt=""
-                        class="w-6 h-6"
-                    />
-                    <span class="mx-4">{{ review.dislikes }}</span>
+                <div class="flex w-auto justify-between">
+                    <Link
+                        :href="
+                            route('deleteReview', {
+                                id: review.id,
+                            })
+                        "
+                    >
+                        <img
+                            src="../../assets/delete.svg"
+                            alt=""
+                            class="w-6 h-6 mx-6 mt-2"
+                        />
+                    </Link>
+                    <div
+                        class="w-auto flex justify-end items-end h-fit self-end"
+                    >
+                        <img
+                            src="../../assets/like.svg"
+                            alt=""
+                            class="w-6 h-6"
+                        />
+                        <span class="mx-4">{{ review.likes }}</span>
+                        <img
+                            src="../../assets/dislike.svg"
+                            alt=""
+                            class="w-6 h-6"
+                        />
+                        <span class="mx-4">{{ review.dislikes }}</span>
+                    </div>
                 </div>
             </div>
         </div>

@@ -30,7 +30,7 @@ const submit = () => {
         <ApplicationLogo class="m-6" />
         <form
             @submit.prevent="submit"
-            class="border-2 border-gray-800 rounded-lg p-12"
+            class="border-2 border-gray-800 rounded-lg p-12 w-1/4"
         >
             <div>
                 <InputLabel for="name" value="Name" />

@@ -20,6 +20,7 @@
     },
     "dependencies": {
         "@splidejs/splide": "^4.1.4",
-        "@splidejs/vue-splide": "^0.6.12"
+        "@splidejs/vue-splide": "^0.6.12",
+        "animejs": "^3.2.1"
     }
 }

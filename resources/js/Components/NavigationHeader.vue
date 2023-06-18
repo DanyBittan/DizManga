@@ -1,6 +1,7 @@
 <script setup>
 import ApplicationLogo from "@/Components/ApplicationLogo.vue";
 import { Link } from "@inertiajs/vue3";
+import { ref } from "vue";
 </script>
 <template>
     <nav class="bg-darkerGray">
@@ -22,7 +23,6 @@ import { Link } from "@inertiajs/vue3";
                             >Home
                         </Link>
                         <Link
-                            v-if="$page.props.auth.user"
                             :href="route('myBooks')"
                             as="button"
                             class="text-white hover:border-b border-white h-full flex items-center mx-4"

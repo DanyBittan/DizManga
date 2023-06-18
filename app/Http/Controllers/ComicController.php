@@ -3,38 +3,77 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
+use App\Models\Wishlist;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
-use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Str as Str;
-use Inertia\Response;
+
 
 
 class ComicController extends Controller
 {
-    public function index()
+
+    public function landing()
     {
-        $allComics = Comic::all();
-        $latestComic = Comic::take(10)->latest()->get();
-        return Inertia::render('Home', [
-            "allComics" => $allComics,
-            "latest" => $latestComic
+        $comics = Comic::take(14)->select('comics.img')->get();
+        return Inertia::render('LandingPage', [
+            'canLogin' => Route::has('login'),
+            'canRegister' => Route::has('register'),
+            'laravelVersion' => Application::VERSION,
+            'phpVersion' => PHP_VERSION,
+            'comics' => $comics
         ]);
     }
+
+    public function index(Request $request)
+    {
+        $all_comics = Comic::take(3)->get();
+        $latest_comic = Comic::take(10)->latest()->get();
+        /* $search_comic = Comic::query()
+            ->when($request->get('searcher'), function ($query, $search) {
+                $query->where("title", "like", "%{$search}%");
+            })
+            ->take(10)
+            ->get(); */
+        return Inertia::render('Home', [
+            "allComics" => $all_comics,
+            "latest" => $latest_comic,
+            /* "search" => $search_comic */
+        ]);
+    }
+
+    public function showSearch(Request $request)
+    {
+        $search = $request->get('search');
+        $search_comic = Comic::query()
+            ->where("title", "like", "%{$search}%")
+            ->get();
+
+        return Inertia::render('Comics/SearchResult', [
+            "search" => $search_comic
+        ]);
+    }
+
     public function details($id)
     {
         $comic = Comic::find($id);
+        /*         $user_id = Auth::user()->id; */
         $comic_reviews = $comic->Review()
             ->join('users', 'reviews.user_id', '=', 'users.id')
             ->select('reviews.*', 'users.user_img', 'users.name')
             ->orderBy('likes', 'desc')
             ->get();
+        /*         $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get(); */
+
         return Inertia::render('Comics/ComicDetails', [
             "comic" => $comic,
             "reviews" => $comic_reviews,
+            /*             "wishlist" => $wishlist, */
         ]);
     }
 
@@ -52,7 +91,14 @@ class ComicController extends Controller
         ]);
         $review->save();
 
-        return to_route('comicDetails', $comic->id);
+        return back();
+    }
+
+    public function deleteReview($id)
+    {
+        Review::destroy($id);
+
+        return back();
     }
 
     public function showMyBooks()
@@ -76,7 +122,19 @@ class ComicController extends Controller
             "myWishList" => $my_wishlist
         ]);
     }
-
+    /* 
+    public function saveWishlist($id, $saved)
+    {
+        $user_id = Auth::user()->id;
+        $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get();
+        $new_wishlist = new Wishlist([
+            'user_id' => $user_id,
+            'comic_id' => $id,
+        ]);
+        $saved ? $wishlist->each->destroy() : $new_wishlist->save();
+        return back();
+    }
+ */
     public function updateComic(Request $request, $id)
     {
 
@@ -97,17 +155,24 @@ class ComicController extends Controller
     public function deleteComic($id)
     {
         Comic::destroy($id);
-        return to_route('adminComicsView');
+        return back();
     }
     public function addComic(Request $request)
     {
+        /* Upload Img to local folder  */
+
+        $file = $request->file('img');
+        $path = 'images/comicImgs/';
+        $filename = time() . '-' . $file->getClientOriginalName();
+        $uploadSuccess = $request->file('img')->move($path, $filename);
+
         $slug = Str::slug($request->get('title'), '-');
         $isbn = rand(100000000, 999999999);
 
         $comics = new Comic([
             'title' => $request->get('title'),
             'publisher' => $request->get('publisher'),
-            'img' => $request->get('img'),
+            'img' => $path . $filename,
             'launch_date' => $request->get('launch'),
             'type' => $request->get('type'),
             'genres' => $request->get('genres'),
@@ -118,6 +183,6 @@ class ComicController extends Controller
         ]);
         $comics->save();
 
-        return redirect(route('adminComicsView'));
+        /*         return redirect(route('adminComicsView')); */
     }
 }
