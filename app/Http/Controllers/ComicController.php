@@ -159,20 +159,13 @@ class ComicController extends Controller
     }
     public function addComic(Request $request)
     {
-        /* Upload Img to local folder  */
-
-        $file = $request->file('img');
-        $path = 'images/comicImgs/';
-        $filename = time() . '-' . $file->getClientOriginalName();
-        $uploadSuccess = $request->file('img')->move($path, $filename);
-
         $slug = Str::slug($request->get('title'), '-');
         $isbn = rand(100000000, 999999999);
 
         $comics = new Comic([
             'title' => $request->get('title'),
             'publisher' => $request->get('publisher'),
-            'img' => $path . $filename,
+            'img' => $request->get('img'),
             'launch_date' => $request->get('launch'),
             'type' => $request->get('type'),
             'genres' => $request->get('genres'),
@@ -183,6 +176,6 @@ class ComicController extends Controller
         ]);
         $comics->save();
 
-        /*         return redirect(route('adminComicsView')); */
+        return redirect(route('adminComicsView'));
     }
 }
