@@ -60,8 +60,8 @@ const props = defineProps({
                                 <span> EXPLORE!!</span>
                                 <span>
                                     <svg
-                                        width="66px"
-                                        height="43px"
+                                        width="44px"
+                                        height="28px"
                                         viewBox="0 0 66 43"
                                         version="1.1"
                                         xmlns="http://www.w3.org/2000/svg"

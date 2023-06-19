@@ -13,7 +13,7 @@ const props = defineProps({
     <MyBooksLayout>
         <div
             v-for="comics in myComics"
-            class="h-[40vh] w-64 mx-8 my-4 flex flex-col justify-center"
+            class="h-96 w-64 mx-8 my-4 flex flex-col justify-center"
         >
             <Link
                 :href="route('comicDetails', { id: comics.id })"

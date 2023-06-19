@@ -7,10 +7,10 @@ const props = defineProps({
 <template>
     <span class="text-4xl font-bold text-gray-300 mx-12">Most popular</span>
     <div
-        class="w-full h-[60vh] rounded-lg mt-10 overflow-hidden text-white flex flex-wrap justify-center items-center p-6"
+        class="w-full h-[26rem] rounded-lg mt-10 overflow-hidden text-white flex flex-wrap justify-center items-center p-6"
     >
         <div
-            class="w-[30vw] h-full px-28 py-6 rounded-xl"
+            class="w-72 h-full mx-16 rounded-xl"
             v-for="comic in comics"
             :key="comic.id"
         >

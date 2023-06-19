@@ -11,12 +11,12 @@ const props = defineProps({
     <div class="flex justify-evenly flex-wrap mt-6">
         <div
             v-for="latest in latest"
-            class="w-80 h-full px-2 my-12 mx-3 flex justify-center content-center"
+            class="w-56 h-full px-2 my-12 mx-3 flex justify-center content-center"
         >
             <Link
                 :href="route('comicDetails', { id: latest.id })"
                 as="button"
-                class="w-11/12"
+                class="w-full"
             >
                 <div class="relative">
                     <img

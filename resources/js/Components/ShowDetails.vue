@@ -31,7 +31,7 @@ const showForm = ref(false);
                     class="flex justify-between content-center bg-neutral-900 rounded-tr-md"
                 >
                     <span
-                        class="sm:text-3xl md:text-8xl text-2xl font-bold text-zinc-400 p-6"
+                        class="sm:text-3xl md:text-4xl text-2xl font-bold text-zinc-400 p-6"
                         >{{ props.comic.title }}</span
                     >
                     <span
