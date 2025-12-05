@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comic;
-use App\Models\Wishlist;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -12,6 +11,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Str as Str;
+
 
 
 
@@ -43,7 +43,6 @@ class ComicController extends Controller
         return Inertia::render('Home', [
             "allComics" => $all_comics,
             "latest" => $latest_comic,
-            /* "search" => $search_comic */
         ]);
     }
 
@@ -167,8 +166,6 @@ class ComicController extends Controller
             'publisher' => $request->get('publisher'),
             'img' => $request->get('img'),
             'launch_date' => $request->get('launch'),
-            'type' => $request->get('type'),
-            'genres' => $request->get('genres'),
             'price' => $request->get('price'),
             'ISBN' => $isbn,
             'sinopsis' => $request->get('sinopsis'),
