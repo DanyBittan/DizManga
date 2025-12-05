@@ -12,7 +12,6 @@ const props = defineProps({
     },
 });
 
-const genres = ref([]);
 const previewsData = props.comic ? true : false;
 
 const form = useForm({
@@ -22,8 +21,6 @@ const form = useForm({
     launch: previewsData ? props.comic.launch_date : "",
     img: previewsData ? props.comic.img : "",
     sinopsis: previewsData ? props.comic.sinopsis : "",
-    type: "",
-    genres: "",
 });
 
 const comicAction = () => {
@@ -135,102 +132,6 @@ const emit = defineEmits(["closeModal"]);
                         placeholder="Sinopsis"
                         :value="form.sinopsis"
                     />
-                </div>
-                <div v-if="!previewsData">
-                    <InputLabel for="type" value="Type:" class="m-3" />
-                    <select
-                        id="type"
-                        class="mt-1 ml-2 p-1 border-gray-300 w-1/2 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                        v-model="form.type"
-                        required
-                        :value="form.type"
-                    >
-                        <option value="manga">Manga</option>
-                        <option value="comic">Comic</option>
-                        <option value="manhwa">Manhwa</option>
-                    </select>
-                    <InputLabel
-                        for="genres"
-                        value="Genres:"
-                        class="m-3 w-1/6"
-                    />
-                    <TextInput
-                        id="genres"
-                        type="text"
-                        v-model="form.genres"
-                        class="mt-1 ml-2 p-1 w-full"
-                        required
-                        autofocus
-                        placeholder="Genres"
-                    />
-                    <!-- <div class="w-full p-4 flex justify-between flex-wrap">
-                    <label class="text-gray-300"
-                        ><input
-                            type="checkbox"
-                            ref="genres"
-                            id="action"
-                            value="Action"
-                            required
-                            class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
-                        />
-                        Action</label
-                    >
-                    <label class="text-gray-300"
-                        ><input
-                            type="checkbox"
-                            ref="genres"
-                            id="romance"
-                            value="Romance"
-                            required
-                            class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
-                        />
-                        Romance</label
-                    >
-                    <label class="text-gray-300"
-                        ><input
-                            type="checkbox"
-                            ref="genres"
-                            id="fantasy"
-                            value="Fantasy"
-                            required
-                            class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
-                        />
-                        Fantasy</label
-                    >
-                    <label class="text-gray-300"
-                        ><input
-                            type="checkbox"
-                            ref="genres"
-                            id="darkFantasy"
-                            value="Dark Fantasy"
-                            required
-                            class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
-                        />
-                        Dark Fantasy</label
-                    >
-                    <label class="text-gray-300"
-                        ><input
-                            type="checkbox"
-                            ref="genres"
-                            id="fight"
-                            value="Fight"
-                            required
-                            class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
-                        />
-                        Fight</label
-                    >
-                    <label class="text-gray-300"
-                        ><input
-                            type="checkbox"
-                            ref="genres"
-                            id="dailyLife"
-                            value="Daily Life"
-                            required
-                            class="border-gray-700 bg-gray-900 text-gray-300 focus:border-indigo-600 rounded-md shadow-sm"
-                        />
-                        Daily Life</label
-                    >
-                </div> -->
                 </div>
             </div>
 

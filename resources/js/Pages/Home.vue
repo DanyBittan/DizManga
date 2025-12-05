@@ -1,11 +1,9 @@
 <script setup>
-import { Link, useForm } from "@inertiajs/vue3";
+import { useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import ComicScroll from "@/Components/ComicScroll.vue";
 import LatestComics from "@/Components/LatestComics.vue";
 import TextInput from "@/Components/TextInput.vue";
-import { ref, watch } from "vue";
-import { router } from "@inertiajs/core";
 
 const props = defineProps({
     allComics: {
@@ -19,6 +17,10 @@ const props = defineProps({
     search: {
         type: Object,
     },
+    // apiData: {
+    //     type: Object,
+    //     required: true
+    // },
 });
 const form = useForm({
     search: "",
@@ -39,7 +41,7 @@ const search = () => {
 </script>
 <template>
     <AuthenticatedLayout>
-        <div class="flex justify-end p-8">
+        <div class="flex flex-col justify-end p-8">
             <div class="md:w-1/5 sm:w-1/2 w-full flex-col relative">
                 <TextInput
                     type="search"

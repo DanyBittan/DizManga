@@ -22,23 +22,9 @@ class ComicFactory extends Factory
             'publisher' => $this->faker->words(2, true),
             'ISBN' => $this->faker->randomNumber(9, true),
             'launch_date' => $this->faker->date('Y_m_d'),
-            'type' => $this->faker->word(),
-            'genres' => $this->faker->word(),
             'price' => $this->faker->randomFloat(2, 1, 20),
             'sinopsis' => $this->faker->text(),
             'slug' => $this->faker->slug()
         ];
     }
-
-    /*  public function genresGenerator(): array
-    {
-        $genres = ['Action', 'Romance', 'Daily Life', 'Fantasy', 'Dark Fantasy', 'Fight'];
-
-        foreach ($genres as $genre) {
-            if (rand(0, 2) == 1) {
-                $savedGenres = $genre;
-            }
-        }
-        return $savedGenres;
-    } */
 }

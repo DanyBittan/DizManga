@@ -18,8 +18,6 @@ return new class extends Migration
             $table->string('publisher');
             $table->string('ISBN')->unique();
             $table->date('launch_date')->nullable;
-            $table->string('type');
-            $table->string('genres');
             $table->decimal('price', $precision = 10, $scale = 2);
             $table->text('sinopsis');
             $table->string('slug')->unique();

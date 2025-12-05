@@ -54,16 +54,6 @@ const showForm = ref(false);
                     <span class="text-xl font-bold hidden md:block">
                         {{ props.comic.ISBN }}</span
                     >
-
-                    <span
-                        class="text-xl font-bold w-1/2 md:w-auto text-right md:text-start"
-                    >
-                        {{ props.comic.type }}</span
-                    >
-                    <span class="text-xl font-bold hidden md:block">
-                        {{ props.comic.genres }}</span
-                    >
-
                     <span class="text-xl font-bold">Sinopsis:</span>
                     <div
                         class="h-11/12 md:h-1/3 p-5 mt-2 bg-neutral-900 text-gray-200 rounded-xl overflow-auto"

@@ -15,8 +15,6 @@ class Comic extends Model
         'publisher',
         'ISBN',
         'launch_date',
-        'type',
-        'genres',
         'price',
         'sinopsis',
         'slug'
