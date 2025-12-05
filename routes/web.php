@@ -18,10 +18,10 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/', [ComicController::class, 'landing'])->name('landingPage');
+Route::get('/', [ComicController::class, 'index'])->name('home');
 
 
-Route::get('/home', [ComicController::class, 'index'])->name('home');
+// Route::get('/home', [ComicController::class, 'index'])->name('home');
 Route::get('/comic/{id}', [ComicController::class, 'details'])->name('comicDetails');
 Route::post('/searchView', [ComicController::class, 'showSearch'])->name('searchView');
 
