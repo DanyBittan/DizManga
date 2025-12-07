@@ -37,10 +37,14 @@ class DatabaseSeeder extends Seeder
             'api_key' => env('COMICSVINE_API_KEY'),
             'format'  => 'json',
             'limit'   => 50,
+            'sort'    => 'store_date:desc',
             'filter'  => 'name:' . $letter,
         ])->json();
         $results = $data['results'] ?? [];
         foreach ($results as $result) {
+            $clean_sinopsis = isset($result['description'])
+                ? strip_tags($result['description'])
+                : 'No description available.';
             \App\Models\Comic::create([
                 'title'       => $result['name'] ?? 'Sin título',
                 'img'         => $result['image']['original_url'] ?? null,
@@ -48,7 +52,7 @@ class DatabaseSeeder extends Seeder
                 'ISBN'        => rand(100000000, 999999999),
                 'launch_date' => $result['cover_date'] ?? now(),
                 'price'       => rand(4, 25) . '.' . rand(0, 99),
-                'sinopsis'    => $result['description'] ?? 'No description available.',
+                'sinopsis' => $clean_sinopsis,
                 'slug'        => Str::slug(($result['name'] ?? 'comic') . '-' . rand(1000, 9999)),
             ]);
         }
