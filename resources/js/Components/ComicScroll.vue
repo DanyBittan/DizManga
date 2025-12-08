@@ -4,7 +4,7 @@ const props = defineProps({
     comics: Object,
 });
 
-
+// console.log(props.comics[2]['review'][4]['rating']);
 const renderStars = (rating) => {
     if (!rating) return 0;
     return Math.round(rating / 10 * 5 * 10) / 10; // CONVERT THE AVERAGE RATING TO A 5-STAR SCALE
@@ -14,12 +14,12 @@ const renderStars = (rating) => {
     <section class="py-16 px-4 sm:px-6 lg:px-12">
         <div class="flex justify-between items-center mb-12">
             <div>
-                <h2 class="text-5xl font-black text-white tracking-tight">FEATURED</h2>
-                <p class="text-gray-400 text-sm mt-2">Comic books we love.</p>
+                <h2 class="text-7xl font-black text-white tracking-tight">FEATURED</h2>
+                <p class="text-gray-400 text-2xl mt-2">Comic books we love.</p>
             </div>
-            <Link href="#" class="text-white font-bold text-lg hover:text-gray-300 transition flex items-center gap-2">
+            <!-- <Link :href="route()" class="text-white font-bold text-2xl hover:text-gray-300 transition flex items-center gap-2">
                 SEE ALL <span class="text-xl">›</span>
-            </Link>
+            </Link> -->
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -46,12 +46,12 @@ const renderStars = (rating) => {
                         <!-- Info Container (Right) -->
                         <div class="space-y-3 flex flex-col justify-between py-2 overflow-hidden">
                             <!-- Label (BESTSELLER, MUST READ, etc.) -->
-                            <!-- <div class="text-xs font-bold text-gray-400 uppercase tracking-widest">
-                                Bestseller
-                            </div> -->
+                            <div class="text-md text-start font-bold text-gray-400 uppercase tracking-widest">
+                                MUST READ
+                            </div>
 
                             <!-- Title -->
-                            <h3 class="text-6xl font-black text-gray-300 group-hover:text-gray-200 transition text-start ">
+                            <h3 class="text-6xl font-bold text-gray-300 group-hover:text-gray-200 transition text-start ">
                                 {{ comic.title }}
                             </h3>
 

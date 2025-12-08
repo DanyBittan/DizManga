@@ -32,8 +32,8 @@ class ComicController extends Controller
 
     public function index(Request $request)
     {
-        $all_comics = Comic::take(3)->get();
-        $latest_comic = Comic::take(10)->latest()->get();
+        $all_comics = Comic::with('Review')->take(3)->get();
+        $latest_comic = Comic::take(12)->latest()->get();
         /* $search_comic = Comic::query()
             ->when($request->get('searcher'), function ($query, $search) {
                 $query->where("title", "like", "%{$search}%");
@@ -43,6 +43,7 @@ class ComicController extends Controller
         return Inertia::render('Home', [
             "allComics" => $all_comics,
             "latest" => $latest_comic,
+
         ]);
     }
 
