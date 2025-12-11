@@ -14,9 +14,9 @@ import Dropdown from "@/Components/Dropdown.vue";
                 >
                     <template v-slot:trigger>
                         <div
-                            class="flex items-center hover:border-b border-white h-full"
+                            class="flex items-center px-5 py-2 bg-gray-800  h-full rounded-lg cursor-pointer"
                         >
-                            <div class="text-white mr-4">
+                            <div class="text-white mr-4 text-xl uppercase font-italic">
                                 {{ $page.props.auth.user.name }}
                             </div>
                             <div class="rounded-full w-10 h-10">
