@@ -3,7 +3,7 @@ import { useForm } from "@inertiajs/vue3";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout.vue";
 import ComicScroll from "@/Components/ComicScroll.vue";
 import LatestComics from "@/Components/LatestComics.vue";
-import TextInput from "@/Components/TextInput.vue";
+import { IconSearch } from '@tabler/icons-vue';
 
 const props = defineProps({
     allComics: {
@@ -14,13 +14,6 @@ const props = defineProps({
         type: Object,
         required: true,
     },
-    search: {
-        type: Object,
-    },
-    // apiData: {
-    //     type: Object,
-    //     required: true
-    // },
 });
 const form = useForm({
     search: "",
@@ -41,46 +34,44 @@ const search = () => {
 </script>
 <template>
     <AuthenticatedLayout>
-        <div class="flex flex-col justify-end p-8">
-            <div class="md:w-1/5 sm:w-1/2 w-full flex-col relative">
-                <TextInput
-                    type="search"
-                    placeholder="Search..."
-                    v-model="form.search"
-                    class="rounded-t-xl w-full mr-8 border-gray-600"
-                    @keyup.enter="search"
-                />
-                <!-- <div
-                    class="absolute w-full h-fit max-h-96 bg-darkGray border rounded-b-xl border-gray-800 overflow-auto hidden sm:block"
-                >
-                    <div
-                        v-for="search in search"
-                        class="h-20 relative my-2 border-b border-gray-600/10"
-                    >
-                        <Link :href="route('comicDetails', { id: search.id })">
-                            <div
-                                class="h-full bg-darkGray flex absolute w-full p-1"
-                            >
-                                <img
-                                    :src="search.img"
-                                    alt="img"
-                                    class="h-full w-1/6"
-                                />
-                                <span class="text-gray-300 mx-2">
-                                    {{ search.title }}
-                                </span>
-                            </div>
-                        </Link>
+        <!-- Hero Section -->
+        <section class="relative bg-gradient-to-b from-gray-950 via-black to-black pt-12 pb-8 px-4 sm:px-6 lg:px-12 overflow-hidden">
+            
+            <div class="relative max-w-7xl mx-auto">
+                <!-- Title and Search -->
+                <div class="mb-12 text-center">
+                    
+                    <!-- Search Bar -->
+                    <div class="flex gap-2 max-w-2xl mx-auto">
+                        <input
+                            type="search"
+                            placeholder="Search comics..."
+                            v-model="form.search"
+                            class="flex-1 border-0 rounded-lg bg-neutral-800 text-white placeholder-gray-500 focus:ring-2 focus:ring-blue-500 py-3 px-4"
+                            @keyup.enter="search"
+                        />
+                        <button
+                            @click="search"
+                            class="bg-blue-900 hover:bg-blue-500 text-white font-bold px-6 py-3 rounded-lg transition"
+                        >
+                            <IconSearch class="w-6 h-6" />
+                        </button>
                     </div>
-                </div> -->
+                </div>
             </div>
-        </div>
-        <ComicScroll :comics="allComics" />
-        <div
-            class="w-full min-h-full h-full text-gray-400 px-10 mt-10 text-4xl font-bold"
-        >
-            Latest
+        </section>
+
+        <!-- Featured Section -->
+        <section class="bg-gradient-to-b from-black via-gray-950 to-black py-12">
+            <ComicScroll :comics="allComics" />
+        </section>
+
+        <!-- Smooth Separator -->
+        <div class="h-px bg-gradient-to-r from-transparent via-gray-900 to-transparent"></div>
+
+        <!-- Latest Releases Section -->
+        <section class="bg-gradient-to-b from-black to-gray-900 py-12">
             <LatestComics :latest="latest" />
-        </div>
+        </section>
     </AuthenticatedLayout>
 </template>
