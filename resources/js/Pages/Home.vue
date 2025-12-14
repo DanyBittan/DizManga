@@ -39,8 +39,7 @@ const search = () => {
             
             <div class="relative max-w-7xl mx-auto">
                 <!-- Title and Search -->
-                <div class="mb-12 text-center">
-                    
+                <div >
                     <!-- Search Bar -->
                     <div class="flex gap-2 max-w-2xl mx-auto">
                         <input
@@ -56,6 +55,9 @@ const search = () => {
                         >
                             <IconSearch class="w-6 h-6" />
                         </button>
+                    </div>
+                    <div class="h-16 bg-white">
+
                     </div>
                 </div>
             </div>

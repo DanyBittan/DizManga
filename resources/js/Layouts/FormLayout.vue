@@ -3,7 +3,6 @@ import TextInput from "@/Components/TextInput.vue";
 import InputLabel from "@/Components/InputLabel.vue";
 import SecondaryButton from "@/Components/SecondaryButton.vue";
 import { useForm } from "@inertiajs/vue3";
-import { ref } from "vue";
 
 const props = defineProps({
     comic: {

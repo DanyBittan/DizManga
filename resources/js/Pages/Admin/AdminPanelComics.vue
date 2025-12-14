@@ -11,7 +11,6 @@ const props = defineProps({
         type: Object,
     },
 });
-const showUpdateForm = ref(false);
 const showAddForm = ref(false);
 </script>
 <template>

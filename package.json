@@ -19,6 +19,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "@google/genai": "^1.33.0",
         "@splidejs/splide": "^4.1.4",
         "@splidejs/vue-splide": "^0.6.12",
         "@tabler/icons-vue": "^3.35.0",
