@@ -12,7 +12,7 @@ const props = defineProps({
         <!-- Header -->
         <div class="mb-12">
             <h2 class="text-5xl font-black text-white tracking-tight">LATEST RELEASES</h2>
-            <p class="text-gray-400 text-sm mt-2">Fresh comics just added to our collection.</p>
+            <p class="text-gray-400 text-lg mt-2">Fresh comics just added to our collection.</p>
             <div class="mt-4 h-1 w-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded"></div>
         </div>
 

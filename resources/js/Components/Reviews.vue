@@ -100,7 +100,7 @@ const submit = () => {
                     <div class="flex-1">
                         <div class="flex items-center justify-between gap-4">
                             <div>
-                                <h4 class="text-white font-bold text-lg">{{ review.name }}</h4>
+                                <h4 class="text-white font-bold text-lg line-clamp-2">{{ review.name }}</h4>
                                 <p class="text-gray-500 text-sm">Reviewer</p>
                             </div>
                             <span class="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-full font-bold text-sm">

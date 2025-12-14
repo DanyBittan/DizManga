@@ -9,13 +9,18 @@ const props = defineProps({
     comic: Object,
     wishlist: Boolean,
 });
+
+// Color for the Save icon based on wishlist status
 const color = props.wishlist ? "#ffffff" : "none";
+
+// Lifecycle hook to log comic data on mount
 onBeforeMount;
 const showForm = ref(false);
 const synopsisExpanded = ref(false);
 </script>
 <template>
     <div class="w-full max-h-[80vh] h-full flex justify-center items-centers">
+        <!-- Main container with the comic information -->
         <div
             class="bg-black overflow-hidden w-2/3 md:w-3/4 rounded-lg m-7 mb-0 flex flex-col md:flex-row border border-neutral-700 shadow-2xl"
         >
@@ -27,7 +32,6 @@ const synopsisExpanded = ref(false);
                 />
             </div>
             <!-- Display of the main information about the comic -->
-             
             <div class="flex flex-col text-gray-300 w-full h-full relative">
                 <div
                     class=" bg-neutral-900 rounded-tr-lg py-5 px-4 border-b border-neutral-700"
