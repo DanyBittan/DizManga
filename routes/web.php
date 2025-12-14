@@ -30,6 +30,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
     Route::get('/mybooks', [ComicController::class, 'showMyBooks'])->middleware(['auth', 'verified'])->name('myBooks');
+    Route::get('/imagegeneration', [ComicController::class, 'generateCoverPrompt'])->name('imageGeneration');
     Route::get('/generateCover', [ComicController::class, 'generateAiCover'])->name('coverGenerator');
     Route::get('/wishList', [ComicController::class, 'showWishList'])->middleware(['auth', 'verified'])->name('wishList');
     Route::get('/{id}-{saved}/saveWishlist', [ComicController::class, 'saveWishlist'])->middleware(['auth', 'verified'])->name('saveWishlist');

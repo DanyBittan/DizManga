@@ -11,9 +11,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Str as Str;
-
-
-
+use Illuminate\Support\Facades\Http;
 
 class ComicController extends Controller
 {
@@ -30,7 +28,7 @@ class ComicController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $all_comics = Comic::with('Review')->take(3)->get();
         $latest_comic = Comic::take(12)->latest()->get();
@@ -157,11 +155,14 @@ class ComicController extends Controller
         Comic::destroy($id);
         return back();
     }
+    // Add new comic to the database
     public function addComic(Request $request)
     {
+        // Generate slug and random ISBN
         $slug = Str::slug($request->get('title'), '-');
-        $isbn = rand(100000000, 999999999);
+        $isbn = rand(1000000000000, 9999999999999);
 
+        // Create and save new comic
         $comics = new Comic([
             'title' => $request->get('title'),
             'publisher' => $request->get('publisher'),
@@ -174,6 +175,41 @@ class ComicController extends Controller
         ]);
         $comics->save();
 
-        return redirect(route('adminComicsView'));
+        return to_route('adminComicsView');
+    }
+
+    // Generate AI cover image based on prompt
+    public function generateCoverPrompt(Request $request)
+    {
+        // Generate AI cover based on prompt
+        $prompt = "Comic book cover, digital illustration, remember that you always have to generate the cover of a comic no matter what" . $request->query('prompt');
+        // Encode prompt for URL
+        $promptEncoded = urlencode($prompt);
+        $parameters = [
+            'model' => 'flux',
+            'nologo' => 'true'
+        ];
+        $imageUrl = 'https://image.pollinations.ai/prompt/' . $promptEncoded . http_build_query($parameters);
+        $response = Http::timeout(60)->get($imageUrl);
+
+        if ($response->successful()) {
+            return response()->json([
+                'success'  => true,
+                'imageUrl' => $imageUrl,
+            ]);
+        }
+
+        return response()->json([
+            'success' => false,
+            'message' => 'Error al generar la imagen en el servidor de IA.',
+        ], 500);
+    }
+
+    // Generate AI cover page view
+    public function generateAiCover()
+    {
+        return Inertia::render(
+            'Comics/GenerateCover'
+        );
     }
 }
