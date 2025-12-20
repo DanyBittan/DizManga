@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Http;
 
 class ComicController extends Controller
 {
-
+    // Show landing page
     public function landing()
     {
         $comics = Comic::take(14)->select('comics.img')->get();
@@ -28,26 +28,33 @@ class ComicController extends Controller
         ]);
     }
 
+    // Show all comics on home page
     public function index()
     {
-        $all_comics = Comic::with('Review')->take(3)->get();
+        $top_comics = Comic::with('Review')->take(3)->get();
         $latest_comic = Comic::take(12)->latest()->get();
-        /* $search_comic = Comic::query()
-            ->when($request->get('searcher'), function ($query, $search) {
-                $query->where("title", "like", "%{$search}%");
-            })
-            ->take(10)
-            ->get(); */
         return Inertia::render('Home', [
-            "allComics" => $all_comics,
+            "allComics" => $top_comics,
             "latest" => $latest_comic,
 
         ]);
     }
+    // Provide search suggestions for autocomplete
+    public function searchSuggestions(Request $request)
+    {
+        // Get search query from request
+        $search_query = $request->query('q');
+        $comic_suggestions = Comic::where('title', 'like', "%{$search_query}%")
+            ->limit(5)
+            ->select('id', 'title', 'img')
+            ->get();
 
+        return response(['suggestions' => $comic_suggestions]);
+    }
+    // Show search results and view
     public function showSearch(Request $request)
     {
-        $search = $request->get('search');
+        $search = $request->query('search');
         $search_comic = Comic::query()
             ->where("title", "like", "%{$search}%")
             ->get();
@@ -57,10 +64,12 @@ class ComicController extends Controller
         ]);
     }
 
+    // Show comic details
     public function details($id)
     {
         $comic = Comic::find($id);
         /*         $user_id = Auth::user()->id; */
+        // Get comic reviews with user info
         $comic_reviews = $comic->Review()
             ->join('users', 'reviews.user_id', '=', 'users.id')
             ->select('reviews.*', 'users.user_img', 'users.name')
@@ -75,13 +84,14 @@ class ComicController extends Controller
         ]);
     }
 
+    // Post a new review
     public function postReview(Request $request, $id)
     {
-        $comic = Comic::find($id);
+        // Find the comic and create a new review using the user id to know who created it
         $user_id = Auth::user()->id;
         $review = new Review([
             'user_id' => $user_id,
-            'comic_id' => $comic->id,
+            'comic_id' => $id,
             'comment' => $request->get('new_review'),
             'likes' => 0,
             'dislikes' => 0,
@@ -92,19 +102,22 @@ class ComicController extends Controller
         return back();
     }
 
+    // Delete a review
     public function deleteReview($id)
     {
         Review::destroy($id);
-
         return back();
     }
 
+    // Show user's owned comics
     public function showMyBooks()
     {
+        // Get user's owned comics
         $user_id = Auth::user()->id;
         $user = User::find($user_id);
         $my_comics = $user->MyBooks()->get();
 
+        // Return view with owned comics
         return Inertia::render('Comics/MyBooks', [
             "myComics" => $my_comics
         ]);
@@ -135,8 +148,10 @@ class ComicController extends Controller
  */
     public function updateComic(Request $request, $id)
     {
-
+        // Generate slug from title
         $slug = Str::slug($request->get('title'), '-');
+
+        // Finds and updates the comic
         $comics = Comic::find($id);
         Comic::where('id', $id)->update([
             'title' => $request->get('title'),
@@ -150,11 +165,14 @@ class ComicController extends Controller
 
         return to_route('comicDetails', $comics->id);
     }
+
+    // Delete comic from the database
     public function deleteComic($id)
     {
         Comic::destroy($id);
         return back();
     }
+
     // Add new comic to the database
     public function addComic(Request $request)
     {
@@ -184,21 +202,21 @@ class ComicController extends Controller
         // Generate AI cover based on prompt
         $prompt = "Comic book cover, digital illustration, remember that you always have to generate the cover of a comic no matter what" . $request->query('prompt');
         // Encode prompt for URL
-        $promptEncoded = urlencode($prompt);
+        $prompt_encoded = urlencode($prompt);
         $parameters = [
             'model' => 'flux',
             'nologo' => 'true'
         ];
-        $imageUrl = 'https://image.pollinations.ai/prompt/' . $promptEncoded . http_build_query($parameters);
-        $response = Http::timeout(60)->get($imageUrl);
+        $image_url = 'https://image.pollinations.ai/prompt/' . $prompt_encoded . http_build_query($parameters);
+        $response = Http::timeout(60)->get($image_url);
 
+        // Return image URL or error message
         if ($response->successful()) {
             return response()->json([
                 'success'  => true,
-                'imageUrl' => $imageUrl,
+                'imageUrl' => $image_url,
             ]);
         }
-
         return response()->json([
             'success' => false,
             'message' => 'Error al generar la imagen en el servidor de IA.',
