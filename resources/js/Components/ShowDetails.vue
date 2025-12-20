@@ -69,7 +69,7 @@ const synopsisExpanded = ref(false);
                     >
                     <h1
                         class="sm:text-sm md:text-3xl w-[80%] text-xl font-bold text-gray-400 hidden md:block"
-                        >{{ props.comic.title }}</h1
+                        >{{ props.comic.volume }}</h1
                     >
                     <div
                         class="h-11/12 md:h-auto p-4 flex gap-4 flex-col justify-around md:bg-neutral-900 text-gray-200 rounded-lg md:border border-neutral-700 shadow-lg"

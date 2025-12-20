@@ -32,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'admin' => 0
         ]);
 
+        // Extraction of data from the API with inmediate translation to english
         $translator = new GoogleTranslate('en');
         $publisher = ["Shueisha", "Kodansha", "Shogakukan", "VIZ Media", "Dark Horse Comics"];
         $letter = collect(range('a', 'z'))->random();
@@ -49,7 +50,8 @@ class DatabaseSeeder extends Seeder
                 : 'No description available.';
             $translated_sinopsis = $translator->translate($clean_sinopsis);
             \App\Models\Comic::create([
-                'title'       => $result['volume']['name'] ?? 'Sin título',
+                'title'       => $translator->translate($result['volume']['name']) ?? 'No title data',
+                'volume'       => $translator->translate($result['name']) ?? 'No data on volume name',
                 'img'         => $result['image']['original_url'] ?? null,
                 'publisher'   => $publisher[array_rand($publisher)],
                 'ISBN'        => rand(1000000000000, 9999999999999),

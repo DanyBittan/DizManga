@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('comics', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('volume');
             $table->string('img');
             $table->string('publisher');
             $table->string('ISBN')->unique();
