@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Str;
+use Stichoza\GoogleTranslate\GoogleTranslate;
 
 class DatabaseSeeder extends Seeder
 {
@@ -31,6 +32,7 @@ class DatabaseSeeder extends Seeder
             'admin' => 0
         ]);
 
+        $translator = new GoogleTranslate('en');
         $publisher = ["Shueisha", "Kodansha", "Shogakukan", "VIZ Media", "Dark Horse Comics"];
         $letter = collect(range('a', 'z'))->random();
         $data = Http::get('https://comicvine.gamespot.com/api/issues/', [
@@ -45,15 +47,17 @@ class DatabaseSeeder extends Seeder
             $clean_sinopsis = isset($result['description'])
                 ? strip_tags($result['description'])
                 : 'No description available.';
+            $translated_sinopsis = $translator->translate($clean_sinopsis);
             \App\Models\Comic::create([
-                'title'       => $result['name'] ?? 'Sin título',
+                'title'       => $result['volume']['name'] ?? 'Sin título',
                 'img'         => $result['image']['original_url'] ?? null,
                 'publisher'   => $publisher[array_rand($publisher)],
-                'ISBN'        => rand(100000000, 999999999),
+                'ISBN'        => rand(1000000000000, 9999999999999),
                 'launch_date' => $result['cover_date'] ?? now(),
                 'price'       => rand(4, 25) . '.' . rand(0, 99),
-                'sinopsis' => $clean_sinopsis,
+                'sinopsis' => $translated_sinopsis,
                 'slug'        => Str::slug(($result['name'] ?? 'comic') . '-' . rand(1000, 9999)),
+                'created_at'  => now(),
             ]);
         }
 
