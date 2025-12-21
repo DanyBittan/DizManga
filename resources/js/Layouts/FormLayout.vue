@@ -15,6 +15,7 @@ const previewsData = props.comic ? true : false;
 
 const form = useForm({
     title: previewsData ? props.comic.title : "",
+    volume: previewsData ? props.comic.volume : "",
     publisher: previewsData ? props.comic.publisher : "",
     price: previewsData ? props.comic.price : "",
     launch: previewsData ? props.comic.launch_date : "",
@@ -24,16 +25,16 @@ const form = useForm({
 
 const comicAction = () => {
     previewsData
-        ? form.post(route("updateComic", { id: props.comic.id }), {
-              preserveScroll: true,
-              onSuccess: () => emit("closeModal"),
-              onFinish: () => form.reset(),
-          })
+        ? form.patch(route("updateComic", { id: props.comic.id }), {
+            preserveScroll: true,
+            onSuccess: () => emit("closeModal"),
+            onFinish: () => form.reset(),
+        })
         : form.post(route("addComic"), {
-              preserveScroll: true,
-              onSuccess: () => emit("closeModal"),
-              onFinish: () => form.reset(),
-          });
+            preserveScroll: true,
+            onSuccess: () => emit("closeModal"),
+            onFinish: () => form.reset(),
+        });
 };
 const emit = defineEmits(["closeModal"]);
 </script>
@@ -56,6 +57,19 @@ const emit = defineEmits(["closeModal"]);
                         autofocus
                         placeholder="Comic title"
                         :value="form.title"
+                    />
+                </div>
+                <div class="flex m-2">
+                    <InputLabel for="volume" value="volume:" class="m-3 w-1/5" />
+                    <TextInput
+                        id="volume"
+                        type="text"
+                        v-model="form.volume"
+                        class="mt-1 ml-2 p-1 w-full"
+                        required
+                        autofocus
+                        placeholder="Comic volume"
+                        :value="form.volume"
                     />
                 </div>
                 <div class="flex m-2">

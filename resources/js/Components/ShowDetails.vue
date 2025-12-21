@@ -44,7 +44,7 @@ const synopsisExpanded = ref(false);
                     <span
                         class="text-xl text-neutral-400 font-bold w-1/2 md:w-auto mt-4 block"
                     >
-                        {{ props.comic.launch_date }}
+                        Launch date: {{ props.comic.launch_date }}
                     </span>
                     <div>
                     <div class="flex justify-between mt-2">
@@ -67,10 +67,11 @@ const synopsisExpanded = ref(false);
                     <div
                         class="p-6 sm:p-6 flex flex-col gap-5 h-full bg-gradient-to-b from-black to-neutral-900"
                     >
-                    <h1
-                        class="sm:text-sm md:text-3xl w-[80%] text-xl font-bold text-gray-400 hidden md:block"
-                        >{{ props.comic.volume }}</h1
+                    <h3 
+                        class="sm:text-sm md:text-3xl w-[80%] text-xl font-bold text-gray-400 invisible md:visible line-clamp-2 overflow-hidden"
                     >
+                        {{ props.comic.volume }}
+                    </h3>
                     <div
                         class="h-11/12 md:h-auto p-4 flex gap-4 flex-col justify-around md:bg-neutral-900 text-gray-200 rounded-lg md:border border-neutral-700 shadow-lg"
                     >

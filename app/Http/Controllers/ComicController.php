@@ -31,7 +31,16 @@ class ComicController extends Controller
     // Show all comics on home page
     public function index()
     {
-        $top_comics = Comic::with('Review')->take(3)->get();
+
+        $top_comics = Comic::select('id', 'title', 'volume', 'img')
+            ->withAvg('Review', 'rating')
+            ->orderByDesc('review_avg_rating')
+            ->take(3)
+            ->get()
+            ->map(function ($comic) {
+                $comic->review_avg_rating = (int) round($comic->review_avg_rating);
+                return $comic;
+            });
         $latest_comic = Comic::take(12)->latest()->get();
         return Inertia::render('Home', [
             "allComics" => $top_comics,
@@ -46,7 +55,7 @@ class ComicController extends Controller
         $search_query = $request->query('q');
         $comic_suggestions = Comic::where('title', 'like', "%{$search_query}%")
             ->limit(5)
-            ->select('id', 'title', 'img')
+            ->select('id', 'title', 'img', 'volume')
             ->get();
 
         return response(['suggestions' => $comic_suggestions]);
@@ -155,6 +164,7 @@ class ComicController extends Controller
         $comics = Comic::find($id);
         Comic::where('id', $id)->update([
             'title' => $request->get('title'),
+            'volume' => $request->get('volume'),
             'publisher' => $request->get('publisher'),
             'launch_date' => $request->get('launch'),
             'img' => $request->get('img'),
@@ -183,6 +193,7 @@ class ComicController extends Controller
         // Create and save new comic
         $comics = new Comic([
             'title' => $request->get('title'),
+            'volume' => $request->get('volume'),
             'publisher' => $request->get('publisher'),
             'img' => $request->get('img'),
             'launch_date' => $request->get('launch'),
