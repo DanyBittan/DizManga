@@ -19,11 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [ComicController::class, 'index'])->name('home');
 
 Route::get('/comic/{id}', [ComicController::class, 'details'])->name('comicDetails');
-Route::post('/searchView', [ComicController::class, 'showSearch'])->name('searchView');
-
-
-
-
+Route::get('/searchView', [ComicController::class, 'showSearch'])->name('searchView');
+Route::get('/search-suggestions', [ComicController::class, 'searchSuggestions'])->name('searchSuggestions');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -41,9 +38,9 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth', 'Admin'])->group(function () {
     Route::get('/adminView/users', [AdminController::class, 'adminPanelUsers'])->middleware(['auth', 'verified'])->name('adminUsersView');
     Route::get('/{id}/adminDeleteUser/', [AdminController::class, 'adminUserDelete'])->middleware(['auth', 'verified'])->name('adminUserDelete');
-    Route::any('/{id}/updateComic', [ComicController::class, 'updateComic'])->middleware(['auth', 'verified'])->name('updateComic');
+    Route::patch('/{id}/updateComic', [ComicController::class, 'updateComic'])->middleware(['auth', 'verified'])->name('updateComic');
     Route::post('/addComic', [ComicController::class, 'addComic'])->middleware(['auth', 'verified'])->name('addComic');
-    Route::get('/{id}/deleteComic', [ComicController::class, 'deleteComic'])->middleware(['auth', 'verified'])->name('deleteComic');
+    Route::delete('/{id}/deleteComic', [ComicController::class, 'deleteComic'])->middleware(['auth', 'verified'])->name('deleteComic');
     Route::get('/adminView/comics', [AdminController::class, 'adminPanelComics'])->middleware(['auth', 'verified'])->name('adminComicsView');
 });
 
