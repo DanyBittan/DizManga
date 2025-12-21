@@ -6,6 +6,7 @@ use App\Models\Comic;
 use App\Models\Review;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Wishlist;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
@@ -77,19 +78,19 @@ class ComicController extends Controller
     public function details($id)
     {
         $comic = Comic::find($id);
-        /*         $user_id = Auth::user()->id; */
+        $user_id = Auth::user()->id;
         // Get comic reviews with user info
         $comic_reviews = $comic->Review()
             ->join('users', 'reviews.user_id', '=', 'users.id')
             ->select('reviews.*', 'users.user_img', 'users.name')
             ->orderBy('likes', 'desc')
             ->get();
-        /*         $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get(); */
+        $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get();
 
         return Inertia::render('Comics/ComicDetails', [
             "comic" => $comic,
             "reviews" => $comic_reviews,
-            /*             "wishlist" => $wishlist, */
+            "wishlist" => $wishlist,
         ]);
     }
 
@@ -122,8 +123,8 @@ class ComicController extends Controller
     public function showMyBooks()
     {
         // Get user's owned comics
-        $user_id = Auth::user()->id;
-        $user = User::find($user_id);
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
         $my_comics = $user->MyBooks()->get();
 
         // Return view with owned comics
@@ -134,27 +135,23 @@ class ComicController extends Controller
 
     public function showWishList()
     {
-        $user_id = Auth::user()->id;
-        $user = User::find($user_id);
-        $my_wishlist = $user->WishList()->get();
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+        $my_wishlist = $user->Wishlist()->get();
 
         return Inertia::render('Comics/WishList', [
             "myWishList" => $my_wishlist
         ]);
     }
-    /* 
-    public function saveWishlist($id, $saved)
+
+    public function saveWishlist($id)
     {
-        $user_id = Auth::user()->id;
-        $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get();
-        $new_wishlist = new Wishlist([
-            'user_id' => $user_id,
-            'comic_id' => $id,
-        ]);
-        $saved ? $wishlist->each->destroy() : $new_wishlist->save();
+        /** @var \App\Models\User $user */
+        $user = auth()->user();
+        $user->Wishlist()->toggle($id);
         return back();
     }
- */
+
     public function updateComic(Request $request, $id)
     {
         // Generate slug from title

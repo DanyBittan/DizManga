@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
                     ]);
                 }
                 if (rand(0, 3) == 3) {
-                    $user->WishList()->attach($comic);
+                    $user->Wishlist()->attach($comic);
                 }
             }
         }
