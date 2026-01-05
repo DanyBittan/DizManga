@@ -66,7 +66,7 @@ watch(searchInput, (value) => {
 }); 
 </script>
 <template>
-    <div class="flex flex-col justify-center max-w-3xl relative z-10">
+    <div class="flex flex-col justify-center mx-auto max-w-3xl relative z-10">
         <!-- Search Bar Container -->
         <div class="relative w-full ">
             <!-- Main Search Bar -->
