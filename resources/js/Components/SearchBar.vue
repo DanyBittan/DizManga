@@ -1,34 +1,57 @@
 <script setup>
 import { IconSearch } from '@tabler/icons-vue';
-import { Link } from '@inertiajs/vue3';
-import { ref, watch } from "vue";
+import { ref, watch, defineEmits, computed } from "vue";
 import axios from "axios";
-import { router } from "@inertiajs/vue3";
+import { router, Link } from "@inertiajs/vue3";
 
+const props = defineProps({
+    comicData: {
+        type: Object,
+        required: false,
+    }
+});
+const emit = defineEmits('update:filteredComics')
 const searchInput = ref("");
 const suggestions = ref([]);
 let waitingForSearch = null;
 
 // Perform search and navigate to search results page
+
 const search = () => {
+    if (props.comicData) return;
     router.get("searchView", { search: searchInput.value });
 };
 
-// Fetch search suggestions based on user input
+// function to match the comics by title
+const matchingComics = computed(() => {
+    // return all the comics or nothing depending of the lenght of the input or the presence of the comicData prop
+    if (!props.comicData || searchInput.value.length < 2) {
+        return props.comicData || [];
+    }
+    // return all comics that match the search bar result
+    return props.comicData.filter(comic =>
+        comic.title.toLowerCase().includes(searchInput.value.toLowerCase())
+    );
+});
+
 const searchSimilar = (query) => {
     if (query.length < 2) {
         suggestions.value = [];
+        emit('update:filteredComics', props.comicData);
         return;
     }
-
-    axios.get(route('searchSuggestions', { q: query }))
-        .then((response) => {
-            suggestions.value = response.data.suggestions;
-            console.log(suggestions.value);
-        })
-        .catch((error) => {
-            console.error('Error fetching search suggestions:', error);
-        });
+    if (props.comicData) {
+        console.log(matchingComics.value)
+        emit('update:filteredComics', matchingComics.value)
+    } else {
+        axios.get(route('searchSuggestions', { q: query }))
+            .then((response) => {
+                suggestions.value = response.data.suggestions;
+            })
+            .catch((error) => {
+                console.error('Error fetching search suggestions:', error);
+            });
+    }
 }
 // Watch for changes in the search input to fetch suggestions
 watch(searchInput, (value) => {
@@ -39,7 +62,7 @@ watch(searchInput, (value) => {
 
     waitingForSearch = setTimeout(() => {
         searchSimilar(value)
-    }, 750)
+    }, 300)
 }); 
 </script>
 <template>
@@ -59,7 +82,7 @@ watch(searchInput, (value) => {
                     class="text-gray-400 hover:text-white px-3 transition">
                     ✕
                 </button>
-                <button @click="search"
+                <button v-if="!props.comicData" @click="search"
                     class="bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3 rounded-xl m-1.5 transition-all hover:shadow-lg hover:shadow-blue-500/50">
                     Search
                 </button>
@@ -69,7 +92,7 @@ watch(searchInput, (value) => {
             <transition enter-active-class="transition ease-out duration-200" enter-from-class="opacity-0 translate-y-1"
                 enter-to-class="opacity-100 translate-y-0" leave-active-class="transition ease-in duration-150"
                 leave-from-class="opacity-100 translate-y-0" leave-to-class="opacity-0 translate-y-1">
-                <div v-if="suggestions.length > 0"
+                <div v-if="suggestions.length > 0 && !props.comicData"
                     class="absolute top-full left-0 right-0 mt-2 bg-neutral-900/98 backdrop-blur-xl rounded-xl shadow-2xl border border-neutral-700/50 z-[100] max-h-[28rem] overflow-x-hidden overflow-y-auto hidden md:block">
                     <div class="p-1.5">
                         <Link :href="route('comicDetails', { id: suggestedComics.id })"
