@@ -36,7 +36,7 @@ class ComicController extends Controller
         $top_comics = Comic::select('id', 'title', 'volume', 'img')
             ->withAvg('Review', 'rating')
             ->orderByDesc('review_avg_rating')
-            ->take(3)
+            ->take(4)
             ->get()
             ->map(function ($comic) {
                 $comic->review_avg_rating = (int) round($comic->review_avg_rating);
@@ -78,14 +78,18 @@ class ComicController extends Controller
     public function details($id)
     {
         $comic = Comic::find($id);
-        $user_id = Auth::user()->id;
+        $wishlist = [];
         // Get comic reviews with user info
         $comic_reviews = $comic->Review()
             ->join('users', 'reviews.user_id', '=', 'users.id')
             ->select('reviews.*', 'users.user_img', 'users.name')
             ->orderBy('likes', 'desc')
             ->get();
-        $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get();
+
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+            $wishlist = Wishlist::where(['user_id' => "{$user_id}", 'comic_id' => "{$id}"])->get();
+        }
 
         return Inertia::render('Comics/ComicDetails', [
             "comic" => $comic,

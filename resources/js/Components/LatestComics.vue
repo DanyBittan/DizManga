@@ -18,27 +18,23 @@ const props = defineProps({
 
         <!-- Grid Container -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <Link
-                v-for="comic in latest"
-                :key="comic.id"
-                :href="route('comicDetails', { id: comic.id })"
-                as="button"
-                class="group focus:outline-none"
-            >
-                <div class="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 h-full">
+            <Link v-for="comic in latest" :key="comic.id" :href="route('comicDetails', { id: comic.id })" as="button"
+                class="group focus:outline-none">
+                <div
+                    class="relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 h-full">
                     <!-- Image Container -->
                     <div class="relative overflow-hidden bg-gray-900 h-96">
-                        <img
-                            :src="comic.img"
-                            :alt="comic.title"
-                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        
+                        <img :src="comic.img" :alt="comic.title"
+                            class="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+
                         <!-- Overlay on hover -->
-                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        
+                        <div
+                            class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        </div>
+
                         <!-- Title overlay -->
-                        <div class="absolute inset-0 p-4 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        <div
+                            class="absolute inset-0 p-4 flex items-end opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <p class="text-white font-bold text-2xl line-clamp-2">{{ comic.title }}</p>
                         </div>
                     </div>
